@@ -139,21 +139,42 @@ const Home = () => {
             transition={{ duration: 1, delay: 0.4 }}
             className="mb-6"
           >
-            <h1 className="text-6xl sm:text-7xl lg:text-9xl font-black">
-              {"Amrut Pathane".split("").map((char, index) => (
-                <span
-                  key={index}
-                  className="inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"
-                  style={{ 
-                    backgroundSize: '200% 200%',
-                    animation: 'gradient-shift 8s ease infinite',
-                    animationDelay: `${index * 0.1}s`,
-                    filter: 'drop-shadow(0 0 20px rgba(6,182,212,0.5)) drop-shadow(0 0 40px rgba(139,92,246,0.3))',
-                  }}
-                >
-                  {char === " " ? "\u00A0" : char}
-                </span>
-              ))}
+            <h1 className="text-6xl sm:text-7xl lg:text-9xl font-black flex flex-wrap justify-center gap-x-4">
+              {/* First Name - Amrut */}
+              <span className="whitespace-nowrap">
+                {"Amrut".split("").map((char, index) => (
+                  <span
+                    key={`first-${index}`}
+                    className="inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"
+                    style={{ 
+                      backgroundSize: '200% 200%',
+                      animation: 'gradient-shift 8s ease infinite',
+                      animationDelay: `${index * 0.1}s`,
+                      filter: 'drop-shadow(0 0 20px rgba(6,182,212,0.5)) drop-shadow(0 0 40px rgba(139,92,246,0.3))',
+                    }}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
+              
+              {/* Last Name - Pathane */}
+              <span className="whitespace-nowrap">
+                {"Pathane".split("").map((char, index) => (
+                  <span
+                    key={`last-${index}`}
+                    className="inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"
+                    style={{ 
+                      backgroundSize: '200% 200%',
+                      animation: 'gradient-shift 8s ease infinite',
+                      animationDelay: `${(index + 5) * 0.1}s`,
+                      filter: 'drop-shadow(0 0 20px rgba(6,182,212,0.5)) drop-shadow(0 0 40px rgba(139,92,246,0.3))',
+                    }}
+                  >
+                    {char}
+                  </span>
+                ))}
+              </span>
             </h1>
           </motion.div>
 
@@ -162,22 +183,24 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-wrap items-center justify-center gap-4 mb-6"
+            className="flex items-center justify-center gap-2 sm:gap-4 mb-6"
           >
             <motion.div
               animate={{ rotate: [0, 5, -5, 0] }}
               transition={{ duration: 3, repeat: Infinity }}
+              className="hidden sm:block"
             >
-              <Terminal className="w-7 h-7 text-cyan-400" />
+              <Terminal className="w-6 h-6 sm:w-7 sm:h-7 text-cyan-400" />
             </motion.div>
-            <h3 className="text-2xl lg:text-4xl font-bold bg-gradient-to-r from-slate-200 to-slate-400 bg-clip-text text-transparent">
+            <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold bg-gradient-to-r from-slate-200 to-slate-400 bg-clip-text text-transparent whitespace-nowrap">
               Full Stack Developer
             </h3>
             <motion.div
               animate={{ rotate: [0, -5, 5, 0] }}
               transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
+              className="hidden sm:block"
             >
-              <Code className="w-7 h-7 text-purple-400" />
+              <Code className="w-6 h-6 sm:w-7 sm:h-7 text-purple-400" />
             </motion.div>
           </motion.div>
 
@@ -197,7 +220,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1 }}
-            className="flex flex-wrap gap-6 justify-center"
+            className="flex flex-wrap gap-4 justify-center px-4"
           >
             {/* Primary CTA */}
             <motion.a
@@ -205,7 +228,7 @@ const Home = () => {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="group relative px-8 py-4 rounded-full overflow-hidden"
+              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-full overflow-hidden"
               style={{
                 transformOrigin: 'center',
                 backfaceVisibility: 'hidden',
@@ -228,13 +251,13 @@ const Home = () => {
               </div>
 
               {/* Button content */}
-              <span className="relative z-10 flex items-center gap-2 text-white font-bold text-lg">
+              <span className="relative z-10 flex items-center gap-2 text-white font-bold text-base sm:text-lg whitespace-nowrap">
                 Explore My Work
                 <motion.div
                   animate={{ x: [0, 5, 0] }}
                   transition={{ duration: 1.5, repeat: Infinity }}
                 >
-                  <ArrowRight className="w-5 h-5" />
+                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
                 </motion.div>
               </span>
 
@@ -254,16 +277,16 @@ const Home = () => {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="group relative px-8 py-4 rounded-full bg-slate-900/50 backdrop-blur-xl border border-slate-700 hover:border-cyan-500/50 transition-colors duration-300"
+              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-slate-900/50 backdrop-blur-xl border border-slate-700 hover:border-cyan-500/50 transition-colors duration-300"
               style={{
                 transformOrigin: 'center',
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
               }}
             >
-              <span className="flex items-center gap-2 text-slate-200 font-bold text-lg">
+              <span className="flex items-center gap-2 text-slate-200 font-bold text-base sm:text-lg whitespace-nowrap">
                 View Resume
-                <Download className="w-5 h-5 text-cyan-400" />
+                <Download className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" />
               </span>
             </motion.a>
           </motion.div>

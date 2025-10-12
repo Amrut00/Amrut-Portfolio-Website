@@ -285,13 +285,13 @@ const About = () => {
             {stats.map((stat, index) => (
               <div
                 key={index}
-                className="relative group stat-hover stat-card overflow-hidden"
+                className="relative group stat-hover stat-card overflow-hidden h-full"
                 style={{ animationDelay: `${0.3 + index * 0.1}s` }}
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
 
-                <div className="relative bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-colors overflow-hidden">
-                  <div className="flex flex-col items-center text-center">
+                <div className="relative bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-colors overflow-hidden h-full flex items-center">
+                  <div className="flex flex-col items-center text-center w-full">
                     <div className="mb-4 p-3 bg-slate-800/50 rounded-xl icon-rotate">
                       <span className="text-4xl">{stat.icon}</span>
                     </div>
@@ -300,7 +300,7 @@ const About = () => {
                       {stat.value}
                     </h3>
 
-                    <p className="text-slate-400 text-sm font-medium">
+                    <p className="text-slate-400 text-sm font-medium min-h-[2.5rem] flex items-center">
                       {stat.label}
                     </p>
                   </div>

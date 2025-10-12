@@ -352,7 +352,7 @@ const Skills = () => {
           </div>
 
           {/* Skills Grid */}
-          <div className="flex flex-wrap justify-center gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:flex md:flex-wrap md:justify-center gap-4">
             {additionalSkills.map((skill, index) => (
               <motion.div
                 key={index}
@@ -374,7 +374,7 @@ const Skills = () => {
                 <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10" />
                 
                 {/* Badge */}
-                <div className="relative flex items-center gap-3 px-6 py-4 rounded-2xl bg-slate-900/70 backdrop-blur-xl border border-slate-800 hover:border-slate-700 transition-all">
+                <div className="relative flex items-center justify-center md:justify-start gap-3 px-6 py-4 rounded-2xl bg-slate-900/70 backdrop-blur-xl border border-slate-800 hover:border-slate-700 transition-all">
                   <skill.icon className={`w-5 h-5 ${skill.color}`} />
                   <span className="text-slate-200 font-semibold">{skill.name}</span>
                 </div>
@@ -404,20 +404,20 @@ const Skills = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 + index * 0.1 }}
               whileHover={{ y: -8 }}
-              className="group relative"
+              className="group relative h-full"
             >
               {/* Glow */}
               <div className={`absolute -inset-1 bg-gradient-to-r ${stat.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10`} />
               
               {/* Stat Card */}
-              <div className="relative bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 text-center hover:border-slate-700 transition-all">
+              <div className="relative bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 text-center hover:border-slate-700 transition-all h-full flex flex-col items-center justify-center">
                 <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${stat.color} mb-4`}>
                   <stat.icon className="w-6 h-6 text-white" />
                 </div>
                 <div className="text-4xl font-black text-white mb-2">
                   {stat.value}
                 </div>
-                <div className="text-slate-400 font-medium">
+                <div className="text-slate-400 font-medium min-h-[2.5rem] flex items-center">
                   {stat.label}
                 </div>
               </div>

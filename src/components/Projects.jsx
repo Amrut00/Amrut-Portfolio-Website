@@ -21,7 +21,7 @@ const Projects = () => {
     },
     {
       id: 2,
-      title: "SPMS - Student Project Management",
+      title: "SPMS@IIITP - Student Project Management at IIIT Pune",
       description: "Academic project management platform for IIIT Pune with group formation, faculty allocation, and real-time collaboration features.",
       longDescription: "Dynamic faculty allocation system, role-specific dashboards, Socket.io chat, and complete project lifecycle tracking.",
       image: "/assets/projects/spms.png",
@@ -52,9 +52,9 @@ const Projects = () => {
       longDescription: "Real-time user tracking with automatic instance switching when thresholds are exceeded. Features Railway, Zomato, and Netflix dashboards.",
       image: "/assets/projects/ticket-booking-system.png",
       technologies: ["React", "Node.js", "Socket.IO", "AWS EC2", "AWS ALB", "Express"],
-      category: "fullstack",
+      category: "backend",
       featured: false,
-      liveLink: "#",
+      liveLink: "https://github.com/Amrut00/Ticket-Booking-System",
       githubLink: "https://github.com/Amrut00/Ticket-Booking-System",
       gradient: "from-orange-500 to-amber-600",
     },
@@ -67,8 +67,8 @@ const Projects = () => {
       technologies: ["React", "Vite", "Framer Motion", "Tailwind CSS", "React Scroll"],
       category: "frontend",
       featured: false,
-      liveLink: "#",
-      githubLink: "#",
+      liveLink: "https://amrutpathane.me",
+      githubLink: "https://github.com/Amrut00/Amrut-Portfolio-Website",
       gradient: "from-pink-500 to-rose-600",
     },
   ];
@@ -84,7 +84,7 @@ const Projects = () => {
     ? projects 
     : projects.filter(project => project.category === filter);
 
-  const featuredProjects = projects.filter(project => project.featured);
+  const featuredProjects = filteredProjects.filter(project => project.featured);
   const regularProjects = filteredProjects.filter(project => !project.featured);
 
   return (
@@ -239,7 +239,7 @@ const Projects = () => {
         </motion.div>
 
         {/* Featured Projects - Large Cards */}
-        {featuredProjects.length > 0 && filter === "all" && (
+        {featuredProjects.length > 0 && (
           <div className="mb-20">
             <motion.h3
               initial={{ opacity: 0, x: -20 }}
@@ -440,6 +440,35 @@ const Projects = () => {
           >
             <Code2 className="w-16 h-16 text-slate-700 mx-auto mb-4" />
             <p className="text-slate-500 text-lg">No projects found in this category.</p>
+          </motion.div>
+        )}
+
+        {/* More Coming Soon - Compact */}
+        {filteredProjects.length > 0 && (
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+            className="text-center mt-12 mb-8"
+          >
+            <a
+              href="https://github.com/Amrut00"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-slate-900/50 backdrop-blur-xl border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900/70 transition-all group cursor-pointer"
+            >
+              {/* GitHub icon */}
+              <Github className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
+              
+              {/* Text */}
+              <span className="text-sm font-semibold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent">
+                View More on GitHub
+              </span>
+              
+              {/* Arrow icon */}
+              <ExternalLink className="w-4 h-4 text-cyan-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+            </a>
           </motion.div>
         )}
 

@@ -181,7 +181,7 @@ const Navbar = () => {
 
       <nav
         ref={navRef}
-        className="fixed left-1/2 z-50 will-change-transform"
+        className="hidden lg:block fixed left-1/2 z-50 will-change-transform"
         style={{
           transform: `translate(-50%, ${scrolled ? '0.5rem' : '1.5rem'}) scale(${scrolled ? 0.97 : 1})`,
           top: 0,
@@ -330,29 +330,6 @@ const Navbar = () => {
             })}
           </div>
 
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="lg:hidden absolute right-6 z-20 w-10 h-10 flex flex-col items-center justify-center gap-1.5 rounded-full hover:bg-white/5 transition-all duration-300"
-            aria-label="Toggle menu"
-          >
-            <span
-              className={`block w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${
-                mobileMenuOpen ? "rotate-45 translate-y-2" : ""
-              }`}
-            />
-            <span
-              className={`block w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${
-                mobileMenuOpen ? "opacity-0" : "opacity-100"
-              }`}
-            />
-            <span
-              className={`block w-5 h-0.5 bg-white rounded-full transition-all duration-300 ${
-                mobileMenuOpen ? "-rotate-45 -translate-y-2" : ""
-              }`}
-            />
-          </button>
-
           {/* Outer Glow - Enhanced with cyan/purple theme */}
           <div
             className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-60 pointer-events-none -z-10 transition-opacity duration-700"
@@ -376,36 +353,82 @@ const Navbar = () => {
         </div>
       </nav>
 
-      {/* Mobile Menu */}
+      {/* Floating Mobile Menu Button */}
+      <button
+        onClick={() => setMobileMenuOpen(true)}
+        className={`lg:hidden fixed right-6 top-6 z-50 w-14 h-14 flex items-center justify-center rounded-full transition-all duration-300 ${
+          mobileMenuOpen ? 'opacity-0 invisible scale-0' : 'opacity-100 visible scale-100'
+        }`}
+        style={{
+          background: "rgba(15, 23, 42, 0.95)",
+          backdropFilter: "blur(32px) saturate(180%)",
+          WebkitBackdropFilter: "blur(32px) saturate(180%)",
+          border: "1px solid rgba(6,182,212,0.3)",
+          boxShadow:
+            "0 10px 30px rgba(0,0,0,0.5), 0 4px 20px rgba(6,182,212,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
+        }}
+        aria-label="Open menu"
+      >
+        {/* Gradient orb */}
+        <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-500/20 to-purple-500/20 blur-xl animate-pulse-glow" />
+        
+        {/* Hamburger icon */}
+        <div className="relative flex flex-col gap-1.5">
+          <span className="block w-6 h-0.5 bg-white rounded-full" />
+          <span className="block w-6 h-0.5 bg-white rounded-full" />
+          <span className="block w-6 h-0.5 bg-white rounded-full" />
+        </div>
+      </button>
+
+      {/* Mobile Sidebar */}
       <div
-        className={`fixed inset-0 z-40 lg:hidden transition-all duration-500 ${
+        className={`fixed inset-0 z-40 lg:hidden transition-all duration-300 ${
           mobileMenuOpen ? "opacity-100 visible" : "opacity-0 invisible"
         }`}
       >
         {/* Backdrop with blur */}
         <div
-          className="absolute inset-0 bg-black/70 backdrop-blur-md"
+          className="absolute inset-0 bg-black/80 backdrop-blur-sm"
           onClick={() => setMobileMenuOpen(false)}
         />
 
-        {/* Menu Panel */}
+        {/* Sidebar Panel */}
         <div
-          className={`absolute top-20 left-6 right-6 rounded-3xl transition-all duration-500 transform overflow-hidden ${
-            mobileMenuOpen ? "translate-y-0 scale-100" : "-translate-y-4 scale-95"
+          className={`absolute top-0 right-0 h-full w-72 transition-transform duration-300 ease-out ${
+            mobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
           style={{
-            background: "rgba(15, 23, 42, 0.92)",
+            background: "rgba(15, 23, 42, 0.98)",
             backdropFilter: "blur(32px) saturate(180%)",
-            border: "1px solid rgba(6,182,212,0.2)",
+            borderLeft: "1px solid rgba(6,182,212,0.2)",
             boxShadow:
-              "0 25px 50px -12px rgba(0,0,0,0.6), 0 12px 35px rgba(6,182,212,0.3), 0 0 0 1px rgba(139,92,246,0.1), inset 0 1px 0 rgba(255,255,255,0.15)",
+              "-10px 0 50px rgba(0,0,0,0.5), -5px 0 35px rgba(6,182,212,0.2)",
           }}
         >
-          {/* Gradient orb in menu */}
-          <div className="absolute -right-10 -top-10 w-32 h-32 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl pointer-events-none" />
-          <div className="absolute -left-10 -bottom-10 w-32 h-32 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl pointer-events-none" />
+          {/* Gradient orbs in sidebar */}
+          <div className="absolute -right-10 top-20 w-40 h-40 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
+          <div className="absolute -left-10 bottom-20 w-40 h-40 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl pointer-events-none animate-pulse-glow" style={{ animationDelay: '2s' }} />
 
-          <div className="relative p-5 space-y-2">
+          {/* Close button */}
+          <button
+            onClick={() => setMobileMenuOpen(false)}
+            className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-all duration-300 text-gray-400 hover:text-white"
+            aria-label="Close menu"
+          >
+            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+
+          {/* Logo/Title */}
+          <div className="px-6 pt-8 pb-4">
+            <h2 className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent">
+              Menu
+            </h2>
+          </div>
+
+          {/* Navigation Links */}
+          <div className="px-4 pt-4 space-y-1">
             {navLinks.map((link, index) => {
               const isActive = activeSection === link.to;
               return (
@@ -418,9 +441,9 @@ const Navbar = () => {
                   spy={true}
                   onSetActive={handleSetActive}
                   onClick={() => handleLinkClick(link.to)}
-                  className={`relative w-full text-left px-5 py-3.5 rounded-2xl text-base font-semibold transition-all duration-300 flex items-center justify-between overflow-hidden ${
+                  className={`relative w-full text-left px-5 py-4 rounded-xl text-base font-semibold transition-all duration-300 flex items-center gap-3 overflow-hidden group ${
                     isActive
-                      ? "bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 text-white scale-[1.02]"
+                      ? "bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 text-white"
                       : "text-gray-300 hover:text-white hover:bg-white/5"
                   }`}
                   style={{
@@ -445,20 +468,32 @@ const Navbar = () => {
                     />
                   )}
                   
+                  {/* Icon indicator */}
+                  <div className={`relative z-10 w-1.5 h-1.5 rounded-full transition-all duration-300 ${
+                    isActive ? 'w-8 h-1.5' : 'group-hover:w-4'
+                  }`}
+                    style={{
+                      background: isActive 
+                        ? "linear-gradient(135deg, rgba(6,182,212,1), rgba(139,92,246,1))"
+                        : "rgba(156, 163, 175, 0.5)",
+                      boxShadow: isActive 
+                        ? "0 0 12px rgba(6,182,212,0.8), 0 0 4px rgba(139,92,246,0.6)"
+                        : "none",
+                    }}
+                  />
+                  
                   <span className="relative z-10">{link.name}</span>
-                  {isActive && (
-                    <div
-                      className="relative z-10 w-2 h-2 rounded-full"
-                      style={{
-                        background: "linear-gradient(135deg, rgba(6,182,212,1), rgba(139,92,246,1))",
-                        boxShadow: "0 0 12px rgba(6,182,212,0.8), 0 0 4px rgba(139,92,246,0.6)",
-                        animation: "pulse-glow 3s ease-in-out infinite",
-                      }}
-                    />
-                  )}
                 </Link>
               );
             })}
+          </div>
+
+          {/* Footer decoration */}
+          <div className="absolute bottom-0 left-0 right-0 p-6">
+            <div className="h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
+            <p className="text-center text-xs text-gray-500 mt-4">
+              © 2024 Amrut Pathane
+            </p>
           </div>
         </div>
       </div>

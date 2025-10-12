@@ -6,7 +6,7 @@ A modern, responsive portfolio website showcasing my projects, skills, and exper
 
 ## 🚀 Live Demo
 
-Visit the live website: [Your Portfolio URL]
+Visit the live website: [https://amrutpathane.me](https://amrutpathane.me)
 
 ## ✨ Features
 

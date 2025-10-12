@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import emailjs from '@emailjs/browser';
+import { Link } from "react-scroll";
 import { 
   Mail, 
   MapPin, 
@@ -10,7 +11,8 @@ import {
   Github,
   Linkedin,
   Instagram,
-  Check
+  Check,
+  ArrowUp
 } from "lucide-react";
 
 const Contact = () => {
@@ -477,6 +479,33 @@ const Contact = () => {
         </div>
           </motion.div>
         </div>
+
+        
+
+        {/* Back to Top Button */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, delay: 0.6 }}
+          className="text-center mt-8 mb-16"
+        >
+          <Link
+            to="home"
+            smooth={true}
+            duration={800}
+            offset={0}
+          >
+            <motion.button
+              whileHover={{ scale: 1.05, y: -2 }}
+              whileTap={{ scale: 0.95 }}
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900/50 backdrop-blur-xl border border-slate-800 hover:border-cyan-500/50 transition-all text-slate-300 hover:text-white"
+            >
+              <ArrowUp className="w-4 h-4 text-cyan-400 group-hover:-translate-y-1 transition-transform" />
+              <span className="text-sm font-semibold">Back to Top</span>
+            </motion.button>
+          </Link>
+        </motion.div>
 
         {/* Footer Note */}
         <motion.div
