@@ -4,7 +4,7 @@ import { Link } from "react-scroll";
 const Navbar = () => {
   const [activeSection, setActiveSection] = useState("home");
   const [scrolled, setScrolled] = useState(false);
-  const [indicatorStyle, setIndicatorStyle] = useState({ opacity: 0 });
+  const [indicatorStyle, setIndicatorStyle] = useState({ opacity: 0, width: "80px" });
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [hoveredItem, setHoveredItem] = useState(null);
   const [isIndicatorReady, setIsIndicatorReady] = useState(false);
@@ -14,16 +14,29 @@ const Navbar = () => {
   const navRef = useRef(null);
   const isMountedRef = useRef(true);
   const animationFrameRef = useRef(null);
+  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef(null);
 
   const navLinks = [
     { name: "Home", to: "home" },
     { name: "About", to: "about" },
     { name: "Projects", to: "projects" },
+    { name: "Publications", to: "publications" },
     { name: "Skills", to: "skills" },
     { name: "Contact", to: "contact" },
   ];
 
-  // Update sliding indicator position with fixed size
+  // Get indicator width based on text length
+  const getIndicatorWidth = useCallback((to) => {
+    const link = navLinks.find(link => link.to === to);
+    if (!link) return "80px";
+    
+    const textLength = link.name.length;
+    // 1-5 letters: 80px, more than 5 letters: 105px
+    return textLength <= 8 ? "80px" : "105px";
+  }, []);
+
+  // Update sliding indicator position with dynamic size
   const updateIndicator = useCallback((to) => {
     if (!isMountedRef.current) return;
 
@@ -41,6 +54,7 @@ const Navbar = () => {
         
         setIndicatorStyle({
           transform: `translateX(${centerOffset}px)`,
+          width: getIndicatorWidth(to),
           opacity: 1,
         });
         
@@ -49,7 +63,7 @@ const Navbar = () => {
         }
       }
     });
-  }, [isIndicatorReady]);
+  }, [isIndicatorReady, getIndicatorWidth]);
 
   // Initialize indicator on mount
   useEffect(() => {
@@ -68,6 +82,9 @@ const Navbar = () => {
       if (animationFrameRef.current) {
         cancelAnimationFrame(animationFrameRef.current);
       }
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
     };
   }, []);
 
@@ -76,21 +93,83 @@ const Navbar = () => {
     updateIndicator(activeSection);
   }, [activeSection, updateIndicator]);
 
-  // Handle immediate indicator update on click
+  // Handle nav click - immediate feedback with scroll spy pause
   const handleNavClick = useCallback((to) => {
+    // Disable scroll spy FIRST before any state updates
+    isScrollingRef.current = true;
+    
+    // Clear any existing timeout
+    if (scrollTimeoutRef.current) {
+      clearTimeout(scrollTimeoutRef.current);
+    }
+    
+    // Now set active section immediately for instant feedback
     setActiveSection(to);
-    // Update indicator immediately for instant feedback
     updateIndicator(to);
+    
+    // Re-enable scroll spy after scroll animation completes (500ms duration + 700ms buffer for settling)
+    scrollTimeoutRef.current = setTimeout(() => {
+      isScrollingRef.current = false;
+    }, 1400);
   }, [updateIndicator]);
 
-  // Handle scroll for shrinking navbar - optimized with RAF
+  // Custom scroll spy - detects which section is most visible
   useEffect(() => {
     let ticking = false;
 
     const handleScroll = () => {
+      // Skip all processing if we're in programmatic scroll
+      if (isScrollingRef.current) {
+        return;
+      }
+      
       if (!ticking) {
         window.requestAnimationFrame(() => {
           setScrolled(window.scrollY > 50);
+          
+          // Double-check: Skip scroll spy updates during programmatic scrolling
+          if (isScrollingRef.current) {
+            ticking = false;
+            return;
+          }
+          
+          // Custom section detection based on viewport coverage
+          const navbarHeight = 64; // Approximate navbar height
+          const viewportHeight = window.innerHeight;
+          const scrollPosition = window.scrollY;
+          
+          let maxVisibleSection = null;
+          let maxVisibleArea = 0;
+          
+          navLinks.forEach((link) => {
+            const section = document.getElementById(link.to);
+            if (section) {
+              const rect = section.getBoundingClientRect();
+              const sectionTop = rect.top + scrollPosition;
+              const sectionBottom = sectionTop + rect.height;
+              
+              // Calculate visible area of this section
+              const visibleTop = Math.max(sectionTop, scrollPosition + navbarHeight);
+              const visibleBottom = Math.min(sectionBottom, scrollPosition + viewportHeight);
+              const visibleArea = Math.max(0, visibleBottom - visibleTop);
+              
+              // Track section with most visible area
+              if (visibleArea > maxVisibleArea) {
+                maxVisibleArea = visibleArea;
+                maxVisibleSection = link.to;
+              }
+            }
+          });
+          
+          // Update active section if a section is covering significant viewport
+          if (maxVisibleSection && maxVisibleSection !== activeSection) {
+            // Only change if the section covers at least 30% of viewport
+            const coverageThreshold = (viewportHeight - navbarHeight) * 0.3;
+            if (maxVisibleArea >= coverageThreshold) {
+              setActiveSection(maxVisibleSection);
+            }
+          }
+          
           ticking = false;
         });
         ticking = true;
@@ -99,7 +178,7 @@ const Navbar = () => {
 
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [activeSection]);
 
   // Handle resize to recalculate indicator position and close mobile menu
   useEffect(() => {
@@ -144,9 +223,9 @@ const Navbar = () => {
     setMobileMenuOpen(false);
   }, [handleNavClick]);
 
-  // Handle scroll spy activation (when scrolling naturally)
+  // Handle scroll spy activation (disabled in favor of custom scroll spy)
   const handleSetActive = useCallback((to) => {
-    setActiveSection(to);
+    // Keeping this for react-scroll compatibility, but our custom scroll spy handles activation
   }, []);
 
   return (
@@ -254,7 +333,6 @@ const Navbar = () => {
               }`}
               style={{
                 ...indicatorStyle,
-                width: "80px",
                 height: "42px",
                 background: "linear-gradient(135deg, rgba(6,182,212,0.4) 0%, rgba(139,92,246,0.35) 50%, rgba(236,72,153,0.3) 100%)",
                 backgroundSize: "200% 200%",
@@ -287,8 +365,8 @@ const Navbar = () => {
                     to={link.to}
                     smooth={true}
                     duration={500}
-                    offset={-20}
-                    spy={true}
+                    offset={-60}
+                    spy={false}
                     isDynamic={true}
                     onClick={() => handleNavClick(link.to)}
                     onSetActive={handleSetActive}
@@ -437,8 +515,8 @@ const Navbar = () => {
                   to={link.to}
                   smooth={true}
                   duration={500}
-                  offset={-20}
-                  spy={true}
+                  offset={-60}
+                  spy={false}
                   onSetActive={handleSetActive}
                   onClick={() => handleLinkClick(link.to)}
                   className={`relative w-full text-left px-5 py-4 rounded-xl text-base font-semibold transition-all duration-300 flex items-center gap-3 overflow-hidden group ${
@@ -492,7 +570,7 @@ const Navbar = () => {
           <div className="absolute bottom-0 left-0 right-0 p-6">
             <div className="h-px bg-gradient-to-r from-transparent via-cyan-500/50 to-transparent" />
             <p className="text-center text-xs text-gray-500 mt-4">
-              © 2024 Amrut Pathane
+              © 2025 Amrut Pathane.
             </p>
           </div>
         </div>

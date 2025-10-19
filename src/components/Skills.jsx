@@ -23,12 +23,12 @@ const Skills = () => {
       gradient: "from-cyan-500 to-blue-600",
       iconColor: "text-cyan-400",
       skills: [
-        { name: "React.js", level: 95, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "HTML / CSS / JavaScript (ES6+)", level: 93, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "Tailwind CSS", level: 92, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "Framer Motion", level: 88, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "React Router / Context API", level: 90, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "Responsive Design", level: 94, color: "from-purple-500/20 to-violet-500/20" },
+        { name: "React.js", level: 95, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "HTML / CSS / JavaScript (ES6+)", level: 93, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "Tailwind CSS", level: 92, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "Framer Motion", level: 88, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "React Router / Context API", level: 90, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "Responsive Design", level: 94, color: "from-purple-500/50 to-violet-500/50" },
       ],
     },
     {
@@ -38,12 +38,12 @@ const Skills = () => {
       gradient: "from-violet-500 to-purple-600",
       iconColor: "text-violet-400",
       skills: [
-        { name: "Node.js", level: 93, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "Express.js", level: 91, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "RESTful APIs", level: 95, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "JWT Authentication", level: 90, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "Session & Role-based Access", level: 88, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "Socket.io (Real-time)", level: 84, color: "from-purple-500/20 to-violet-500/20" },
+        { name: "Node.js", level: 93, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "Express.js", level: 91, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "RESTful APIs", level: 95, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "JWT Authentication", level: 90, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "Session & Role-based Access", level: 88, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "Socket.io (Real-time)", level: 84, color: "from-purple-500/50 to-violet-500/50" },
       ],
     },
     {
@@ -53,11 +53,11 @@ const Skills = () => {
       gradient: "from-pink-500 to-rose-600",
       iconColor: "text-pink-400",
       skills: [
-        { name: "MongoDB", level: 92, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "Mongoose ODM", level: 89, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "MySQL", level: 83, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "Firebase", level: 85, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "Data Modeling", level: 88, color: "from-purple-500/20 to-violet-500/20" },
+        { name: "MongoDB", level: 92, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "Mongoose ODM", level: 89, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "MySQL", level: 90, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "Cloudinary", level: 88, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "Postgre SQL", level: 85, color: "from-purple-500/50 to-violet-500/50" },
       ],
     },
     {
@@ -67,11 +67,11 @@ const Skills = () => {
       gradient: "from-emerald-500 to-teal-600",
       iconColor: "text-emerald-400",
       skills: [
-        { name: "Git & GitHub", level: 95, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "VS Code / Postman", level: 93, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "Netlify / Vercel / Render", level: 90, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "Linux / Command Line", level: 85, color: "from-purple-500/20 to-violet-500/20" },
-        { name: "API Testing & Debugging", level: 87, color: "from-purple-500/20 to-violet-500/20" },
+        { name: "Git & GitHub", level: 95, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "VS Code / Postman", level: 93, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "Netlify / Vercel / Render", level: 92, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "Command Line", level: 85, color: "from-purple-500/50 to-violet-500/50" },
+        { name: "API Testing & Debugging", level: 87, color: "from-purple-500/50 to-violet-500/50" },
       ],
     },
   ];
@@ -87,7 +87,7 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 py-20"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 py-10"
     >
       <style>{`
         @keyframes float {
@@ -291,7 +291,7 @@ const Skills = () => {
                       </div>
 
                       {/* Progress Bar */}
-                      <div className="h-2 bg-slate-800/40 rounded-full overflow-hidden border border-slate-700/20">
+                      <div className="h-2.5 bg-slate-800/70 rounded-full overflow-hidden border border-slate-700/50 shadow-inner">
                         <motion.div
                           className={`h-full rounded-full relative overflow-hidden bg-gradient-to-r ${skill.color}`}
                           initial={{ width: 0 }}
@@ -310,7 +310,7 @@ const Skills = () => {
                         >
                           {/* Enhanced shimmer effect for visibility */}
                           <div 
-                            className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400/40 to-transparent"
+                            className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-400/50 to-transparent"
                             style={{ 
                               animation: 'shimmer 2s infinite',
                               transform: 'translateZ(0)',

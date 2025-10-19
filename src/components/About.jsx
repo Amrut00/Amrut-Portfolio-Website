@@ -65,7 +65,7 @@ const About = () => {
   return (
     <section
       id="about"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 py-0"
     >
       <style>{`
         @keyframes float {

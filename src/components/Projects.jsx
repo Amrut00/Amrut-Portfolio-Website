@@ -90,7 +90,7 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 py-20"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 py-10"
     >
       <style>{`
         @keyframes float {
@@ -261,15 +261,15 @@ const Projects = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.2 }}
-                  className="project-card group relative"
+                  className="project-card group relative h-full"
                 >
                   {/* Glow effect */}
                   <div className={`absolute -inset-1 bg-gradient-to-r ${project.gradient} rounded-3xl blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 -z-10`} />
                   
                   {/* Card */}
-                  <div className="relative bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl overflow-hidden hover:border-slate-700 transition-all duration-300">
+                  <div className="relative bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl overflow-hidden hover:border-slate-700 transition-all duration-300 h-full flex flex-col">
                     {/* Image */}
-                    <div className="relative h-64 overflow-hidden">
+                    <div className="relative h-64 overflow-hidden flex-shrink-0">
                       <img 
                         src={project.image} 
                         alt={project.title}
@@ -297,16 +297,16 @@ const Projects = () => {
                     </div>
 
                     {/* Content */}
-                    <div className="p-8">
+                    <div className="p-8 flex-grow flex flex-col">
                       <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
                         {project.title}
                       </h3>
-                      <p className="text-slate-400 leading-relaxed mb-6">
+                      <p className="text-slate-400 leading-relaxed mb-6 flex-grow">
                         {project.longDescription}
                       </p>
 
                       {/* Links */}
-                      <div className="flex gap-4">
+                      <div className="flex gap-4 flex-shrink-0">
                         <motion.a
                           href={project.liveLink}
                           target="_blank"
