@@ -463,9 +463,9 @@ const Navbar = () => {
         
         {/* Hamburger icon */}
         <div className="relative flex flex-col gap-1.5">
-          <span className="block w-6 h-0.5 bg-white rounded-full" />
-          <span className="block w-6 h-0.5 bg-white rounded-full" />
-          <span className="block w-6 h-0.5 bg-white rounded-full" />
+          <span className="block w-6 h-0.5 rounded-full" style={{ backgroundColor: 'var(--text-white)' }} />
+          <span className="block w-6 h-0.5 rounded-full" style={{ backgroundColor: 'var(--text-white)' }} />
+          <span className="block w-6 h-0.5 rounded-full" style={{ backgroundColor: 'var(--text-white)' }} />
         </div>
       </button>
 
@@ -537,19 +537,31 @@ const Navbar = () => {
                   spy={false}
                   onSetActive={handleSetActive}
                   onClick={() => handleLinkClick(link.to)}
-                  className={`relative w-full text-left px-5 py-4 rounded-xl text-base font-semibold transition-all duration-300 flex items-center gap-3 overflow-hidden group ${
-                    isActive
-                      ? "bg-gradient-to-r from-cyan-500/20 via-purple-500/20 to-pink-500/20 text-white"
-                      : "text-gray-300 hover:text-white hover:bg-white/5"
-                  }`}
+                  className="relative w-full text-left px-5 py-4 rounded-xl text-base font-semibold transition-all duration-300 flex items-center gap-3 overflow-hidden group"
                   style={{
                     transitionDelay: `${index * 50}ms`,
+                    background: isActive 
+                      ? "linear-gradient(to right, rgba(6, 182, 212, 0.2), rgba(168, 85, 247, 0.2), rgba(244, 114, 182, 0.2))"
+                      : "transparent",
+                    color: isActive ? 'var(--text-white)' : 'var(--text-gray-300)',
                     border: isActive 
                       ? "1px solid var(--border-cyan-30)" 
                       : "1px solid transparent",
                     boxShadow: isActive 
                       ? "0 4px 20px var(--shadow-cyan-20), inset 0 1px 0 var(--white-10)"
                       : "none",
+                  }}
+                  onMouseEnter={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.color = 'var(--text-white)';
+                      e.currentTarget.style.backgroundColor = 'var(--white-10)';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (!isActive) {
+                      e.currentTarget.style.color = 'var(--text-gray-300)';
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                    }
                   }}
                 >
                   {/* Animated background for active item */}
