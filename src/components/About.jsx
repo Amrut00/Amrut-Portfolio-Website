@@ -65,7 +65,8 @@ const About = () => {
   return (
     <section
       id="about"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 py-0"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-0"
+      style={{ backgroundColor: 'var(--bg-slate-950)' }}
     >
       <style>{`
         @keyframes float {
@@ -197,7 +198,7 @@ const About = () => {
           left: -100%;
           width: 100%;
           height: 100%;
-          background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+                  background: linear-gradient(90deg, transparent, var(--white-10), transparent);
           transition: left 0.5s;
         }
         
@@ -207,7 +208,21 @@ const About = () => {
       `}</style>
 
       {/* Animated grid background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f12_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f12_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--grid-pattern)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-pattern)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+      
+      {/* Grid fade overlays - Top and Bottom */}
+      <div 
+        className="absolute top-0 left-0 right-0 h-24 pointer-events-none z-10"
+        style={{ 
+          background: 'linear-gradient(to bottom, var(--bg-slate-950), transparent)'
+        }}
+      ></div>
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-24 pointer-events-none z-10"
+        style={{ 
+          background: 'linear-gradient(to top, var(--bg-slate-950), transparent)'
+        }}
+      ></div>
 
       {/* Gradient orbs - lighter on sides, darker at top/bottom */}
       <div className="absolute inset-0 overflow-hidden">
@@ -251,9 +266,9 @@ const About = () => {
           <div className="text-center mb-16 animate-fade-in-up">
             <div className="inline-flex items-center gap-2 mb-4">
               <div style={{ animation: "rotate-slow 3s linear infinite" }}>
-                <Sparkles className="w-6 h-6 text-cyan-400" />
+                <Sparkles className="w-6 h-6" style={{ color: 'var(--color-cyan-400)' }} />
               </div>
-              <span className="text-cyan-400 font-semibold tracking-wider uppercase text-sm">
+              <span className="font-semibold tracking-wider uppercase text-sm" style={{ color: 'var(--color-cyan-400)' }}>
                 Get to know me
               </span>
             </div>
@@ -290,17 +305,33 @@ const About = () => {
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-cyan-500/20 to-purple-500/20 rounded-2xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-300"></div>
 
-                <div className="relative bg-slate-900/50 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-colors overflow-hidden h-full flex items-center">
+                <div className="relative backdrop-blur-xl rounded-2xl p-6 transition-colors overflow-hidden h-full flex items-center"
+                  style={{ 
+                    backgroundColor: 'var(--bg-slate-900-50)',
+                    borderWidth: '1px',
+                    borderStyle: 'solid',
+                    borderColor: 'var(--border-slate-800)'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-700)'}
+                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-800)'}
+                >
                   <div className="flex flex-col items-center text-center w-full">
-                    <div className="mb-4 p-3 bg-slate-800/50 rounded-xl icon-rotate">
+                    <div className="mb-4 p-3 rounded-xl icon-rotate" style={{ backgroundColor: 'var(--bg-slate-800-50)' }}>
                       <span className="text-4xl">{stat.icon}</span>
                     </div>
 
-                    <h3 className="text-4xl font-bold bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent mb-2 hover:scale-110 transition-transform duration-300">
+                    <h3 className="text-4xl font-bold mb-2 hover:scale-110 transition-transform duration-300"
+                      style={{ 
+                        background: 'linear-gradient(to right, var(--text-white), var(--text-slate-200))',
+                        WebkitBackgroundClip: 'text',
+                        backgroundClip: 'text',
+                        color: 'transparent'
+                      }}
+                    >
                       {stat.value}
                     </h3>
 
-                    <p className="text-slate-400 text-sm font-medium min-h-[2.5rem] flex items-center">
+                    <p className="text-sm font-medium min-h-[2.5rem] flex items-center" style={{ color: 'var(--text-slate-400)' }}>
                       {stat.label}
                     </p>
                   </div>
@@ -319,13 +350,22 @@ const About = () => {
           >
             {cards.map((card, index) => (
               <div key={index} className="relative group card-hover">
-                {/* Glow effect */}
+                {/* Glow effect - gradient classes are already defined in Tailwind */}
                 <div
                   className={`absolute -inset-1 bg-gradient-to-r ${card.gradient} rounded-3xl blur-2xl glow-effect opacity-0`}
                 ></div>
 
                 {/* Card */}
-                <div className="relative bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 hover:border-slate-700 transition-all duration-300 h-full overflow-hidden">
+                <div className="relative backdrop-blur-xl rounded-3xl p-8 transition-all duration-300 h-full overflow-hidden"
+                  style={{ 
+                    backgroundColor: 'var(--bg-slate-900-80)',
+                    borderWidth: '1px',
+                    borderStyle: 'solid',
+                    borderColor: 'var(--border-slate-800)'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-700)'}
+                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-800)'}
+                >
                   {/* Icon */}
                   <div
                     className={`inline-flex p-4 rounded-2xl ${card.iconBg} mb-6 shadow-lg icon-rotate`}
@@ -334,7 +374,7 @@ const About = () => {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                  <h3 className="text-2xl font-bold mb-4 flex items-center gap-2" style={{ color: 'var(--text-white)' }}>
                     {card.title}
                     <span
                       className="text-xl animate-pulse"
@@ -345,7 +385,7 @@ const About = () => {
                   </h3>
 
                   {/* Description */}
-                  <p className="text-slate-300 leading-relaxed mb-6">
+                  <p className="leading-relaxed mb-6" style={{ color: 'var(--text-slate-300)' }}>
                     {card.description}
                   </p>
 
@@ -361,8 +401,13 @@ const About = () => {
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none"></div>
-    </section>
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
+        style={{ 
+          background: 'linear-gradient(to top, var(--bg-slate-950), transparent)'
+        }}
+      ></div>    
+      </section>
   );
 };
 

@@ -90,7 +90,8 @@ const Projects = () => {
   return (
     <section
       id="projects"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 py-10"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-10"
+      style={{ backgroundColor: 'var(--bg-slate-950)' }}
     >
       <style>{`
         @keyframes float {
@@ -145,7 +146,7 @@ const Projects = () => {
       `}</style>
 
       {/* Animated grid background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f12_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f12_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--grid-pattern)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-pattern)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
 
       {/* Gradient orbs */}
       <div className="absolute inset-0 overflow-hidden">
@@ -195,9 +196,9 @@ const Projects = () => {
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
             >
-              <Sparkles className="w-6 h-6 text-cyan-400" />
+              <Sparkles className="w-6 h-6" style={{ color: 'var(--color-cyan-400)' }} />
             </motion.div>
-            <span className="text-cyan-400 font-semibold tracking-wider uppercase text-sm">
+            <span className="font-semibold tracking-wider uppercase text-sm" style={{ color: 'var(--color-cyan-400)' }}>
               My Work
             </span>
           </div>
@@ -213,7 +214,7 @@ const Projects = () => {
             </span>
         </h2>
           
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto mb-8">
+          <p className="text-lg max-w-2xl mx-auto mb-8" style={{ color: 'var(--text-slate-400)' }}>
             Showcasing my best work in web development, from full-stack applications to creative frontend experiences.
           </p>
 
@@ -225,11 +226,34 @@ const Projects = () => {
                 onClick={() => setFilter(category.id)}
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className={`flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300 ${
+                className="flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all duration-300"
+                style={
                   filter === category.id
-                    ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/30'
-                    : 'bg-slate-900/50 text-slate-400 hover:text-white border border-slate-800 hover:border-cyan-500/50'
-                }`}
+                    ? {
+                        background: 'linear-gradient(to right, var(--color-cyan-500), var(--color-blue-600))',
+                        color: 'var(--text-white)',
+                        boxShadow: '0 10px 15px -3px var(--shadow-cyan-30)'
+                      }
+                    : {
+                        backgroundColor: 'var(--bg-slate-900-50)',
+                        color: 'var(--text-slate-400)',
+                        borderWidth: '1px',
+                        borderStyle: 'solid',
+                        borderColor: 'var(--border-slate-800)'
+                      }
+                }
+                onMouseEnter={(e) => {
+                  if (filter !== category.id) {
+                    e.currentTarget.style.color = 'var(--text-white)';
+                    e.currentTarget.style.borderColor = 'var(--border-cyan-50)';
+                  }
+                }}
+                onMouseLeave={(e) => {
+                  if (filter !== category.id) {
+                    e.currentTarget.style.color = 'var(--text-slate-400)';
+                    e.currentTarget.style.borderColor = 'var(--border-slate-800)';
+                  }
+                }}
               >
                 <category.icon className="w-4 h-4" />
                 {category.label}
@@ -245,7 +269,8 @@ const Projects = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-2xl font-bold text-white mb-8 flex items-center gap-3"
+              className="text-2xl font-bold mb-8 flex items-center gap-3"
+              style={{ color: 'var(--text-white)' }}
             >
               <span className="w-2 h-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500" 
                 style={{ animation: 'pulse-glow 2s ease-in-out infinite' }}
@@ -267,7 +292,16 @@ const Projects = () => {
                   <div className={`absolute -inset-1 bg-gradient-to-r ${project.gradient} rounded-3xl blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 -z-10`} />
                   
                   {/* Card */}
-                  <div className="relative bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl overflow-hidden hover:border-slate-700 transition-all duration-300 h-full flex flex-col">
+                  <div className="relative backdrop-blur-xl rounded-3xl overflow-hidden transition-all duration-300 h-full flex flex-col"
+                    style={{ 
+                      backgroundColor: 'var(--bg-slate-900-80)',
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderColor: 'var(--border-slate-800)'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-700)'}
+                    onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-800)'}
+                  >
                     {/* Image */}
                     <div className="relative h-64 overflow-hidden flex-shrink-0">
                       <img 
@@ -276,20 +310,35 @@ const Projects = () => {
                         className="absolute inset-0 w-full h-full object-cover project-image"
                       />
                       {/* Subtle white overlay - not too bright */}
-                      <div className="absolute inset-0 bg-black/10" />
+                      <div className="absolute inset-0" style={{ background: 'var(--bg-black-10)' }} />
                       
                       {/* Tech tags floating on image */}
                       <div className="absolute top-4 left-4 flex flex-wrap gap-2">
                         {project.technologies.slice(0, 3).map((tech, idx) => (
                           <span
                             key={idx}
-                            className="px-3 py-1 rounded-full text-xs font-semibold bg-slate-900/80 backdrop-blur-sm text-cyan-400 border border-cyan-500/30"
+                            className="px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm"
+                            style={{ 
+                              backgroundColor: 'var(--bg-slate-900-80)',
+                              color: 'var(--color-cyan-400)',
+                              borderWidth: '1px',
+                              borderStyle: 'solid',
+                              borderColor: 'var(--border-cyan-30)'
+                            }}
                           >
                             {tech}
                           </span>
                         ))}
                         {project.technologies.length > 3 && (
-                          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-slate-900/80 backdrop-blur-sm text-slate-400 border border-slate-700">
+                          <span className="px-3 py-1 rounded-full text-xs font-semibold backdrop-blur-sm"
+                            style={{ 
+                              backgroundColor: 'var(--bg-slate-900-80)',
+                              color: 'var(--text-slate-400)',
+                              borderWidth: '1px',
+                              borderStyle: 'solid',
+                              borderColor: 'var(--border-slate-700)'
+                            }}
+                          >
                             +{project.technologies.length - 3}
                           </span>
                         )}
@@ -298,10 +347,14 @@ const Projects = () => {
 
                     {/* Content */}
                     <div className="p-8 flex-grow flex flex-col">
-                      <h3 className="text-2xl font-bold text-white mb-3 group-hover:text-cyan-400 transition-colors">
+                      <h3 className="text-2xl font-bold mb-3 transition-colors"
+                        style={{ color: 'var(--text-white)' }}
+                        onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-cyan-400)'}
+                        onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-white)'}
+                      >
                         {project.title}
                       </h3>
-                      <p className="text-slate-400 leading-relaxed mb-6 flex-grow">
+                      <p className="leading-relaxed mb-6 flex-grow" style={{ color: 'var(--text-slate-400)' }}>
                         {project.longDescription}
                       </p>
 
@@ -313,7 +366,14 @@ const Projects = () => {
                           rel="noopener noreferrer"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="flex items-center gap-2 px-6 py-3 rounded-full bg-gradient-to-r from-cyan-500 to-blue-600 text-white font-semibold shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all"
+                          className="flex items-center gap-2 px-6 py-3 rounded-full font-semibold shadow-lg transition-all"
+                          style={{ 
+                            background: 'linear-gradient(to right, var(--color-cyan-500), var(--color-blue-600))',
+                            color: 'var(--text-white)',
+                            boxShadow: '0 10px 15px -3px var(--shadow-cyan-20), 0 4px 6px -4px var(--shadow-cyan-20)'
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.boxShadow = '0 10px 15px -3px var(--shadow-cyan-40), 0 4px 6px -4px var(--shadow-cyan-40)'}
+                          onMouseLeave={(e) => e.currentTarget.style.boxShadow = '0 10px 15px -3px var(--shadow-cyan-20), 0 4px 6px -4px var(--shadow-cyan-20)'}
                         >
                           <ExternalLink className="w-4 h-4" />
                           Live Demo
@@ -324,7 +384,16 @@ const Projects = () => {
                           rel="noopener noreferrer"
                           whileHover={{ scale: 1.05 }}
                           whileTap={{ scale: 0.95 }}
-                          className="flex items-center gap-2 px-6 py-3 rounded-full bg-slate-800/50 text-slate-300 font-semibold border border-slate-700 hover:border-slate-600 hover:text-white transition-all"
+                          className="flex items-center gap-2 px-6 py-3 rounded-full font-semibold transition-all"
+                          style={{ 
+                            backgroundColor: 'var(--bg-slate-800-50)',
+                            color: 'var(--text-slate-300)',
+                            borderWidth: '1px',
+                            borderStyle: 'solid',
+                            borderColor: 'var(--border-slate-700)'
+                          }}
+                          onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--border-slate-600)'; e.currentTarget.style.color = 'var(--text-white)'; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-slate-700)'; e.currentTarget.style.color = 'var(--text-slate-300)'; }}
                         >
                           <Github className="w-4 h-4" />
                           Code
@@ -345,7 +414,8 @@ const Projects = () => {
               initial={{ opacity: 0, x: -20 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="text-2xl font-bold text-white mb-8 flex items-center gap-3"
+              className="text-2xl font-bold mb-8 flex items-center gap-3"
+              style={{ color: 'var(--text-white)' }}
             >
               <span className="w-2 h-2 rounded-full bg-gradient-to-r from-purple-400 to-pink-500" 
                 style={{ animation: 'pulse-glow 2s ease-in-out infinite', animationDelay: '0.5s' }}
@@ -367,7 +437,16 @@ const Projects = () => {
                   <div className={`absolute -inset-1 bg-gradient-to-r ${project.gradient} rounded-2xl blur-xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`} />
                   
                   {/* Card */}
-                  <div className="relative bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-2xl overflow-hidden hover:border-slate-700 transition-all duration-300 h-full flex flex-col">
+                  <div className="relative backdrop-blur-xl rounded-2xl overflow-hidden transition-all duration-300 h-full flex flex-col"
+                    style={{ 
+                      backgroundColor: 'var(--bg-slate-900-70)',
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderColor: 'var(--border-slate-800)'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-700)'}
+                    onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-800)'}
+                  >
                     {/* Image */}
                     <div className="relative h-48 overflow-hidden">
                       <img 
@@ -376,17 +455,21 @@ const Projects = () => {
                         className="absolute inset-0 w-full h-full object-cover project-image"
                       />
                       {/* Subtle dark overlay */}
-                      <div className="absolute inset-0 bg-black/20" />
+                      <div className="absolute inset-0" style={{ background: 'var(--bg-black-20)' }} />
                       <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-10`} />
                       <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-40" />
               </div>
 
                     {/* Content */}
                     <div className="p-6 flex flex-col flex-grow">
-                      <h3 className="text-xl font-bold text-white mb-2 group-hover:text-cyan-400 transition-colors">
+                      <h3 className="text-xl font-bold mb-2 transition-colors"
+                        style={{ color: 'var(--text-white)' }}
+                        onMouseEnter={(e) => e.currentTarget.style.color = 'var(--color-cyan-400)'}
+                        onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-white)'}
+                      >
                   {project.title}
                 </h3>
-                      <p className="text-slate-400 text-sm leading-relaxed mb-4 flex-grow">
+                      <p className="text-sm leading-relaxed mb-4 flex-grow" style={{ color: 'var(--text-slate-400)' }}>
                         {project.description}
                       </p>
 
@@ -395,7 +478,14 @@ const Projects = () => {
                         {project.technologies.map((tech, idx) => (
                     <span
                             key={idx}
-                            className="px-2 py-1 rounded-lg text-xs font-medium bg-slate-800/50 text-slate-300 border border-slate-700"
+                            className="px-2 py-1 rounded-lg text-xs font-medium"
+                            style={{ 
+                              backgroundColor: 'var(--bg-slate-800-50)',
+                              color: 'var(--text-slate-300)',
+                              borderWidth: '1px',
+                              borderStyle: 'solid',
+                              borderColor: 'var(--border-slate-700)'
+                            }}
                     >
                       {tech}
                     </span>
@@ -408,7 +498,16 @@ const Projects = () => {
                           href={project.liveLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 rounded-full bg-cyan-500/10 text-cyan-400 text-sm font-semibold border border-cyan-500/30 hover:bg-cyan-500/20 transition-all flex-1 justify-center"
+                          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all flex-1 justify-center"
+                          style={{ 
+                            backgroundColor: 'var(--color-cyan-500-10)',
+                            color: 'var(--color-cyan-400)',
+                            borderWidth: '1px',
+                            borderStyle: 'solid',
+                            borderColor: 'var(--border-cyan-30)'
+                          }}
+                          onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'var(--color-cyan-500-20)'}
+                          onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'var(--color-cyan-500-10)'}
                         >
                           <ExternalLink className="w-3 h-3" />
                           Demo
@@ -417,7 +516,16 @@ const Projects = () => {
                           href={project.githubLink}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex items-center gap-2 px-4 py-2 rounded-full bg-slate-800/50 text-slate-300 text-sm font-semibold border border-slate-700 hover:border-slate-600 hover:text-white transition-all flex-1 justify-center"
+                          className="flex items-center gap-2 px-4 py-2 rounded-full text-sm font-semibold transition-all flex-1 justify-center"
+                          style={{ 
+                            backgroundColor: 'var(--bg-slate-800-50)',
+                            color: 'var(--text-slate-300)',
+                            borderWidth: '1px',
+                            borderStyle: 'solid',
+                            borderColor: 'var(--border-slate-700)'
+                          }}
+                          onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--border-slate-600)'; e.currentTarget.style.color = 'var(--text-white)'; }}
+                          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-slate-700)'; e.currentTarget.style.color = 'var(--text-slate-300)'; }}
                         >
                           <Github className="w-3 h-3" />
                           Code
@@ -438,8 +546,8 @@ const Projects = () => {
             animate={{ opacity: 1 }}
             className="text-center py-20"
           >
-            <Code2 className="w-16 h-16 text-slate-700 mx-auto mb-4" />
-            <p className="text-slate-500 text-lg">No projects found in this category.</p>
+            <Code2 className="w-16 h-16 mx-auto mb-4" style={{ color: 'var(--border-slate-700)' }} />
+            <p className="text-lg" style={{ color: 'var(--text-slate-500)' }}>No projects found in this category.</p>
           </motion.div>
         )}
 
@@ -456,10 +564,18 @@ const Projects = () => {
               href="https://github.com/Amrut00"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-slate-900/50 backdrop-blur-xl border border-slate-800 hover:border-cyan-500/50 hover:bg-slate-900/70 transition-all group cursor-pointer"
+              className="inline-flex items-center gap-3 px-6 py-3 rounded-full backdrop-blur-xl transition-all group cursor-pointer"
+              style={{ 
+                backgroundColor: 'var(--bg-slate-900-50)',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'var(--border-slate-800)'
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--border-cyan-50)'; e.currentTarget.style.backgroundColor = 'var(--bg-slate-900-70)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-slate-800)'; e.currentTarget.style.backgroundColor = 'var(--bg-slate-900-50)'; }}
             >
               {/* GitHub icon */}
-              <Github className="w-5 h-5 text-cyan-400 group-hover:scale-110 transition-transform" />
+              <Github className="w-5 h-5 group-hover:scale-110 transition-transform" style={{ color: 'var(--color-cyan-400)' }} />
               
               {/* Text */}
               <span className="text-sm font-semibold bg-gradient-to-r from-cyan-400 to-purple-600 bg-clip-text text-transparent">
@@ -467,7 +583,7 @@ const Projects = () => {
               </span>
               
               {/* Arrow icon */}
-              <ExternalLink className="w-4 h-4 text-cyan-400 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+              <ExternalLink className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" style={{ color: 'var(--color-cyan-400)' }} />
             </a>
           </motion.div>
         )}
@@ -475,7 +591,12 @@ const Projects = () => {
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none"></div>
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{ 
+          background: 'linear-gradient(to top, var(--bg-slate-950), transparent)'
+        }}
+      ></div>
     </section>
   );
 };

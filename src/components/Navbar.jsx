@@ -274,12 +274,12 @@ const Navbar = () => {
         <div
           className="relative flex items-center justify-center h-14 md:h-16 px-4 md:px-6 rounded-full overflow-hidden group"
           style={{
-            background: "rgba(15, 23, 42, 0.8)",
+            background: "var(--bg-slate-900-80)",
             backdropFilter: "blur(32px) saturate(180%)",
             WebkitBackdropFilter: "blur(32px) saturate(180%)",
-            border: "1px solid rgba(139, 92, 246, 0.2)",
+            border: "1px solid var(--border-purple-20)",
             boxShadow:
-              "0 25px 50px -12px rgba(0,0,0,0.6), 0 12px 35px rgba(6,182,212,0.2), 0 0 0 1px rgba(139,92,246,0.1), inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(0,0,0,0.4)",
+              "0 25px 50px -12px rgba(0,0,0,0.6), 0 12px 35px var(--shadow-cyan-20), 0 0 0 1px var(--color-purple-primary-10), inset 0 1px 0 var(--white-15), inset 0 -1px 0 rgba(0,0,0,0.4)",
           }}
           onMouseMove={(e) => {
             const rect = e.currentTarget.getBoundingClientRect();
@@ -292,25 +292,25 @@ const Navbar = () => {
           <div
             className="absolute inset-0 opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-500"
             style={{
-              background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, rgba(6,182,212,0.15) 0%, rgba(139,92,246,0.1) 25%, transparent 50%)`,
+              background: `radial-gradient(circle at ${mousePosition.x}% ${mousePosition.y}%, var(--color-cyan-500-15) 0%, var(--color-purple-primary-10) 25%, transparent 50%)`,
             }}
           />
 
-          {/* Subtle Grid Pattern */}
-          <div 
-            className="absolute inset-0 opacity-10 pointer-events-none"
-            style={{
-              backgroundImage: 'linear-gradient(to right, rgba(139,92,246,0.3) 1px, transparent 1px), linear-gradient(to bottom, rgba(139,92,246,0.3) 1px, transparent 1px)',
-              backgroundSize: '20px 20px',
-            }}
-          />
+          {/* Grid removed as per user request */}
 
           {/* Gradient Orbs */}
-          <div className="absolute -left-20 -top-10 w-40 h-40 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl pointer-events-none" 
-            style={{ animation: 'pulse-glow 8s ease-in-out infinite' }} 
+          <div className="absolute -left-20 -top-10 w-40 h-40 rounded-full blur-3xl pointer-events-none" 
+            style={{ 
+              background: 'linear-gradient(to right, var(--color-cyan-500-20), var(--color-blue-500-20))',
+              animation: 'pulse-glow 8s ease-in-out infinite' 
+            }} 
           />
-          <div className="absolute -right-20 -bottom-10 w-40 h-40 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl pointer-events-none" 
-            style={{ animation: 'pulse-glow 8s ease-in-out infinite', animationDelay: '2s' }} 
+          <div className="absolute -right-20 -bottom-10 w-40 h-40 rounded-full blur-3xl pointer-events-none" 
+            style={{ 
+              background: 'linear-gradient(to right, var(--color-purple-500-20), var(--color-pink-500-20))',
+              animation: 'pulse-glow 8s ease-in-out infinite', 
+              animationDelay: '2s' 
+            }} 
           />
 
           {/* Shimmer Effect */}
@@ -328,25 +328,28 @@ const Navbar = () => {
           <div className="hidden lg:flex relative items-center justify-center gap-x-2 flex-nowrap shrink-0" style={{ transform: 'translateZ(0)' }}>
             {/* Sliding Indicator */}
             <div
-              className={`absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full transition-all duration-500 ease-in-out will-change-transform ${
+              className={`absolute left-0 top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full will-change-transform ${
                 isIndicatorReady ? "opacity-100" : "opacity-0"
               }`}
               style={{
                 ...indicatorStyle,
                 height: "42px",
-                background: "linear-gradient(135deg, rgba(6,182,212,0.4) 0%, rgba(139,92,246,0.35) 50%, rgba(236,72,153,0.3) 100%)",
+                background: "linear-gradient(135deg, var(--color-cyan-500-50) 0%, var(--color-purple-primary-50) 50%, var(--color-pink-500-30) 100%)",
                 backgroundSize: "200% 200%",
                 animation: "gradient-shift 8s ease infinite",
                 boxShadow:
-                  "0 4px 25px rgba(6,182,212,0.5), 0 0 60px rgba(139,92,246,0.3), inset 0 1px 2px rgba(255,255,255,0.25), inset 0 -1px 2px rgba(0,0,0,0.2)",
-                border: "1px solid rgba(6,182,212,0.4)",
+                  "0 4px 25px var(--shadow-cyan-30), 0 0 60px var(--shadow-purple-20), inset 0 1px 2px var(--white-25), inset 0 -1px 2px rgba(0,0,0,0.2)",
+                border: "1px solid var(--border-cyan-40)",
                 backfaceVisibility: "hidden",
                 WebkitBackfaceVisibility: "hidden",
                 perspective: 1000,
+                transition: "all 0.5s cubic-bezier(0.4, 0, 0.2, 1)",
               }}
             >
               {/* Inner glow */}
-              <div className="absolute inset-0 rounded-full bg-gradient-to-r from-cyan-400/10 via-purple-400/10 to-pink-400/10 blur-sm pointer-events-none" />
+              <div className="absolute inset-0 rounded-full blur-sm pointer-events-none" 
+                style={{ background: 'linear-gradient(to right, var(--color-cyan-400) 0%, var(--color-purple-400-10) 50%, var(--color-pink-400) 100%)', opacity: 0.1 }} 
+              />
             </div>
 
             {navLinks.map((link) => {
@@ -370,15 +373,23 @@ const Navbar = () => {
                     isDynamic={true}
                     onClick={() => handleNavClick(link.to)}
                     onSetActive={handleSetActive}
-                    className={`relative cursor-pointer select-none text-sm font-semibold px-4 py-2.5 rounded-full transition-all duration-300 will-change-transform ${
-                      isActive
-                        ? "text-white"
-                        : "text-gray-300 hover:text-white hover:bg-white/5"
-                    }`}
+                    className="relative cursor-pointer select-none text-sm font-semibold px-4 py-2.5 rounded-full transition-all duration-300 will-change-transform"
                     style={{
+                      color: isActive ? 'var(--text-white)' : 'var(--text-slate-300)',
+                      backgroundColor: !isActive && isHovered ? 'var(--white-10)' : 'transparent',
                       transform: isActive || isHovered ? 'scale(1.05)' : 'scale(1)',
                       backfaceVisibility: 'hidden',
                       WebkitFontSmoothing: 'antialiased',
+                    }}
+                    onMouseEnter={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.color = 'var(--text-white)';
+                      }
+                    }}
+                    onMouseLeave={(e) => {
+                      if (!isActive) {
+                        e.currentTarget.style.color = 'var(--text-slate-300)';
+                      }
                     }}
                   >
                     <span className="relative z-10 whitespace-nowrap bg-gradient-to-r from-white via-white to-white bg-clip-text">
@@ -390,7 +401,7 @@ const Navbar = () => {
                       <div
                         className="absolute inset-0 rounded-full -z-10 transition-opacity duration-300"
                         style={{
-                          background: "radial-gradient(circle, rgba(6,182,212,0.2) 0%, rgba(139,92,246,0.15) 50%, transparent 70%)",
+                          background: "radial-gradient(circle, var(--color-cyan-500-20) 0%, var(--color-purple-primary-15) 50%, transparent 70%)",
                           filter: "blur(10px)",
                         }}
                       />
@@ -413,7 +424,7 @@ const Navbar = () => {
             className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-60 pointer-events-none -z-10 transition-opacity duration-700"
             style={{
               background:
-                "linear-gradient(135deg, rgba(6,182,212,0.6), rgba(139,92,246,0.5), rgba(236,72,153,0.6))",
+                "linear-gradient(135deg, var(--color-cyan-500-60), var(--color-purple-primary-50), var(--color-pink-500-60))",
               backgroundSize: "200% 200%",
               animation: "gradient-shift 8s ease infinite",
               filter: "blur(25px)",
@@ -423,7 +434,7 @@ const Navbar = () => {
           {/* Border accent shine */}
           <div className="absolute inset-0 rounded-full pointer-events-none opacity-50"
             style={{
-              background: "linear-gradient(135deg, transparent 0%, rgba(6,182,212,0.1) 50%, transparent 100%)",
+              background: "linear-gradient(135deg, transparent 0%, var(--color-cyan-500-10) 50%, transparent 100%)",
               backgroundSize: "200% 200%",
               animation: "gradient-shift 10s ease infinite",
             }}
@@ -438,12 +449,12 @@ const Navbar = () => {
           mobileMenuOpen ? 'opacity-0 invisible scale-0' : 'opacity-100 visible scale-100'
         }`}
         style={{
-          background: "rgba(15, 23, 42, 0.95)",
+          background: "var(--bg-slate-900-95)",
           backdropFilter: "blur(32px) saturate(180%)",
           WebkitBackdropFilter: "blur(32px) saturate(180%)",
-          border: "1px solid rgba(6,182,212,0.3)",
+          border: "1px solid var(--border-cyan-30)",
           boxShadow:
-            "0 10px 30px rgba(0,0,0,0.5), 0 4px 20px rgba(6,182,212,0.3), inset 0 1px 0 rgba(255,255,255,0.15)",
+            "0 10px 30px rgba(0,0,0,0.5), 0 4px 20px var(--shadow-cyan-30), inset 0 1px 0 var(--white-15)",
         }}
         aria-label="Open menu"
       >
@@ -476,21 +487,28 @@ const Navbar = () => {
             mobileMenuOpen ? "translate-x-0" : "translate-x-full"
           }`}
           style={{
-            background: "rgba(15, 23, 42, 0.98)",
+            background: "var(--bg-slate-900-98)",
             backdropFilter: "blur(32px) saturate(180%)",
-            borderLeft: "1px solid rgba(6,182,212,0.2)",
+            borderLeft: "1px solid var(--border-cyan-20)",
             boxShadow:
-              "-10px 0 50px rgba(0,0,0,0.5), -5px 0 35px rgba(6,182,212,0.2)",
+              "-10px 0 50px rgba(0,0,0,0.5), -5px 0 35px var(--shadow-cyan-20)",
           }}
         >
           {/* Gradient orbs in sidebar */}
-          <div className="absolute -right-10 top-20 w-40 h-40 bg-gradient-to-r from-cyan-500/20 to-blue-500/20 rounded-full blur-3xl pointer-events-none animate-pulse-glow" />
-          <div className="absolute -left-10 bottom-20 w-40 h-40 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-3xl pointer-events-none animate-pulse-glow" style={{ animationDelay: '2s' }} />
+          <div className="absolute -right-10 top-20 w-40 h-40 rounded-full blur-3xl pointer-events-none animate-pulse-glow"
+            style={{ background: 'linear-gradient(to right, var(--color-cyan-500-20), var(--color-blue-500-20))' }} 
+          />
+          <div className="absolute -left-10 bottom-20 w-40 h-40 rounded-full blur-3xl pointer-events-none animate-pulse-glow" 
+            style={{ background: 'linear-gradient(to right, var(--color-purple-500-20), var(--color-pink-500-20))', animationDelay: '2s' }} 
+          />
 
           {/* Close button */}
           <button
             onClick={() => setMobileMenuOpen(false)}
-            className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full hover:bg-white/10 transition-all duration-300 text-gray-400 hover:text-white"
+            className="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full transition-all duration-300"
+            style={{ color: 'var(--text-gray-300)' }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = 'var(--white-10)'; e.currentTarget.style.color = 'var(--text-white)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = 'transparent'; e.currentTarget.style.color = 'var(--text-gray-300)'; }}
             aria-label="Close menu"
           >
             <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -527,10 +545,10 @@ const Navbar = () => {
                   style={{
                     transitionDelay: `${index * 50}ms`,
                     border: isActive 
-                      ? "1px solid rgba(6,182,212,0.3)" 
+                      ? "1px solid var(--border-cyan-30)" 
                       : "1px solid transparent",
                     boxShadow: isActive 
-                      ? "0 4px 20px rgba(6,182,212,0.2), inset 0 1px 0 rgba(255,255,255,0.1)"
+                      ? "0 4px 20px var(--shadow-cyan-20), inset 0 1px 0 var(--white-10)"
                       : "none",
                   }}
                 >
@@ -539,7 +557,7 @@ const Navbar = () => {
                     <div 
                       className="absolute inset-0 opacity-30"
                       style={{
-                        background: "linear-gradient(135deg, rgba(6,182,212,0.3), rgba(139,92,246,0.3), rgba(236,72,153,0.3))",
+                        background: "linear-gradient(135deg, var(--color-cyan-500-30), var(--color-purple-primary-30), var(--color-pink-500-30))",
                         backgroundSize: "200% 200%",
                         animation: "gradient-shift 8s ease infinite",
                       }}
@@ -552,10 +570,10 @@ const Navbar = () => {
                   }`}
                     style={{
                       background: isActive 
-                        ? "linear-gradient(135deg, rgba(6,182,212,1), rgba(139,92,246,1))"
+                        ? "linear-gradient(135deg, var(--color-cyan-500), var(--color-purple-primary))"
                         : "rgba(156, 163, 175, 0.5)",
                       boxShadow: isActive 
-                        ? "0 0 12px rgba(6,182,212,0.8), 0 0 4px rgba(139,92,246,0.6)"
+                        ? "0 0 12px var(--shadow-cyan-80), 0 0 4px var(--shadow-purple-60)"
                         : "none",
                     }}
                   />

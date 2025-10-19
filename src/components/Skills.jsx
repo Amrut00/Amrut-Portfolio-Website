@@ -87,7 +87,8 @@ const Skills = () => {
   return (
     <section
       id="skills"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 py-10"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-10"
+      style={{ backgroundColor: 'var(--bg-slate-950)' }}
     >
       <style>{`
         @keyframes float {
@@ -151,7 +152,7 @@ const Skills = () => {
       `}</style>
 
       {/* Animated grid background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f12_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f12_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--grid-pattern)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-pattern)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
 
       {/* Gradient orbs */}
       <div className="absolute inset-0 overflow-hidden">
@@ -201,9 +202,9 @@ const Skills = () => {
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
             >
-              <Sparkles className="w-6 h-6 text-cyan-400" />
+              <Sparkles className="w-6 h-6" style={{ color: 'var(--color-cyan-400)' }} />
             </motion.div>
-            <span className="text-cyan-400 font-semibold tracking-wider uppercase text-sm">
+            <span className="font-semibold tracking-wider uppercase text-sm" style={{ color: 'var(--color-cyan-400)' }}>
               My Expertise
             </span>
           </div>
@@ -219,7 +220,7 @@ const Skills = () => {
             </span>
           </h2>
           
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-slate-400)' }}>
             A comprehensive overview of my technical skills and proficiency levels across various technologies.
           </p>
         </motion.div>
@@ -246,14 +247,23 @@ const Skills = () => {
               <div className={`absolute -inset-1 bg-gradient-to-r ${category.gradient} rounded-3xl blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10`} />
               
               {/* Card */}
-              <div className="relative bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl p-8 hover:border-slate-700 transition-all duration-300">
+              <div className="relative backdrop-blur-xl rounded-3xl p-8 transition-all duration-300"
+                style={{ 
+                  backgroundColor: 'var(--bg-slate-900-80)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--border-slate-800)'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-700)'}
+                onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-800)'}
+              >
                 
                 {/* Category Header */}
                 <div className="flex items-center gap-4 mb-6">
                   <div className={`p-4 rounded-2xl bg-gradient-to-r ${category.gradient} shadow-lg`}>
-                    <category.icon className="w-6 h-6 text-white" />
+                    <category.icon className="w-6 h-6" style={{ color: 'var(--text-white)' }} />
                   </div>
-                  <h3 className="text-2xl font-bold text-white">
+                  <h3 className="text-2xl font-bold" style={{ color: 'var(--text-white)' }}>
                     {category.category}
                   </h3>
                 </div>
@@ -280,18 +290,26 @@ const Skills = () => {
                     >
                       {/* Skill Name and Level */}
                       <div className="flex justify-between items-center mb-2">
-                        <span className="text-slate-200 font-semibold">{skill.name}</span>
-                        <span className={`text-sm font-bold ${
-                          hoveredSkill === `${category.id}-${skillIndex}` 
-                            ? 'text-cyan-400' 
-                            : 'text-slate-500'
-                        } transition-colors`}>
+                        <span className="font-semibold" style={{ color: 'var(--text-slate-200)' }}>{skill.name}</span>
+                        <span className="text-sm font-bold transition-colors"
+                          style={{ 
+                            color: hoveredSkill === `${category.id}-${skillIndex}` 
+                              ? 'var(--color-cyan-400)' 
+                              : 'var(--text-slate-500)'
+                          }}>
                           {skill.level}%
                         </span>
                       </div>
 
                       {/* Progress Bar */}
-                      <div className="h-2.5 bg-slate-800/70 rounded-full overflow-hidden border border-slate-700/50 shadow-inner">
+                      <div className="h-2.5 rounded-full overflow-hidden shadow-inner"
+                        style={{ 
+                          backgroundColor: 'var(--bg-slate-800-70)',
+                          borderWidth: '1px',
+                          borderStyle: 'solid',
+                          borderColor: 'var(--border-slate-700)'
+                        }}
+                      >
                         <motion.div
                           className={`h-full rounded-full relative overflow-hidden bg-gradient-to-r ${skill.color}`}
                           initial={{ width: 0 }}
@@ -343,10 +361,10 @@ const Skills = () => {
         >
           {/* Header */}
           <div className="text-center mb-8">
-            <h3 className="text-3xl font-bold text-white mb-3">
+            <h3 className="text-3xl font-bold mb-3" style={{ color: 'var(--text-white)' }}>
               Additional Expertise
             </h3>
-            <p className="text-slate-400">
+            <p style={{ color: 'var(--text-slate-400)' }}>
               Soft skills and methodologies I excel at
             </p>
           </div>
@@ -374,9 +392,18 @@ const Skills = () => {
                 <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 to-purple-600 rounded-2xl blur-lg opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10" />
                 
                 {/* Badge */}
-                <div className="relative flex items-center justify-center md:justify-start gap-3 px-6 py-4 rounded-2xl bg-slate-900/70 backdrop-blur-xl border border-slate-800 hover:border-slate-700 transition-all">
+                <div className="relative flex items-center justify-center md:justify-start gap-3 px-6 py-4 rounded-2xl backdrop-blur-xl transition-all"
+                  style={{ 
+                    backgroundColor: 'var(--bg-slate-900-70)',
+                    borderWidth: '1px',
+                    borderStyle: 'solid',
+                    borderColor: 'var(--border-slate-800)'
+                  }}
+                  onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-700)'}
+                  onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-800)'}
+                >
                   <skill.icon className={`w-5 h-5 ${skill.color}`} />
-                  <span className="text-slate-200 font-semibold">{skill.name}</span>
+                  <span className="font-semibold" style={{ color: 'var(--text-slate-200)' }}>{skill.name}</span>
                 </div>
               </motion.div>
             ))}
@@ -410,14 +437,23 @@ const Skills = () => {
               <div className={`absolute -inset-1 bg-gradient-to-r ${stat.color} rounded-2xl blur-xl opacity-0 group-hover:opacity-30 transition-opacity duration-300 -z-10`} />
               
               {/* Stat Card */}
-              <div className="relative bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 text-center hover:border-slate-700 transition-all h-full flex flex-col items-center justify-center">
+              <div className="relative backdrop-blur-xl rounded-2xl p-6 text-center transition-all h-full flex flex-col items-center justify-center"
+                style={{ 
+                  backgroundColor: 'var(--bg-slate-900-70)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--border-slate-800)'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-700)'}
+                onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-800)'}
+              >
                 <div className={`inline-flex p-3 rounded-xl bg-gradient-to-r ${stat.color} mb-4`}>
-                  <stat.icon className="w-6 h-6 text-white" />
+                  <stat.icon className="w-6 h-6" style={{ color: 'var(--text-white)' }} />
                 </div>
-                <div className="text-4xl font-black text-white mb-2">
+                <div className="text-4xl font-black mb-2" style={{ color: 'var(--text-white)' }}>
                   {stat.value}
                 </div>
-                <div className="text-slate-400 font-medium min-h-[2.5rem] flex items-center">
+                <div className="font-medium min-h-[2.5rem] flex items-center" style={{ color: 'var(--text-slate-400)' }}>
                   {stat.label}
                 </div>
               </div>
@@ -428,7 +464,12 @@ const Skills = () => {
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none"></div>
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{ 
+          background: 'linear-gradient(to top, var(--bg-slate-950), transparent)'
+        }}
+      ></div>
     </section>
   );
 };

@@ -7,7 +7,8 @@ const Home = () => {
   return (
     <section
       id="home"
-      className="relative h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950"
+      className="relative h-screen w-full flex items-center justify-center overflow-hidden"
+      style={{ backgroundColor: 'var(--bg-slate-950)' }}
     >
       <style>{`
         @keyframes float {
@@ -61,13 +62,13 @@ const Home = () => {
         }
 
         @keyframes text-glow {
-          0%, 100% { text-shadow: 0 0 20px rgba(6,182,212,0.3), 0 0 40px rgba(139,92,246,0.2); }
-          50% { text-shadow: 0 0 30px rgba(6,182,212,0.5), 0 0 60px rgba(139,92,246,0.3); }
+          0%, 100% { text-shadow: 0 0 20px var(--color-cyan-500-30), 0 0 40px var(--color-purple-primary-20); }
+          50% { text-shadow: 0 0 30px var(--color-cyan-500-50), 0 0 60px var(--color-purple-primary-30); }
         }
       `}</style>
 
       {/* Animated grid background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f12_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f12_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--grid-pattern)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-pattern)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
 
       {/* Gradient orbs - lighter on sides, darker at top/bottom */}
       <div className="absolute inset-0 overflow-hidden">
@@ -127,7 +128,7 @@ const Home = () => {
             transition={{ duration: 0.8, delay: 0.2 }}
             className="mb-6"
           >
-            <h2 className="text-2xl lg:text-3xl text-slate-300 font-light">
+            <h2 className="text-2xl lg:text-3xl font-light" style={{ color: 'var(--text-slate-300)' }}>
               Hi there! I'm
             </h2>
           </motion.div>
@@ -145,12 +146,15 @@ const Home = () => {
                 {"Amrut".split("").map((char, index) => (
                   <span
                     key={`first-${index}`}
-                    className="inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"
+                    className="inline-block bg-clip-text text-transparent"
                     style={{ 
+                      background: 'linear-gradient(to right, var(--color-cyan-400), var(--color-blue-500), var(--color-purple-600))',
+                      WebkitBackgroundClip: 'text',
+                      backgroundClip: 'text',
                       backgroundSize: '200% 200%',
                       animation: 'gradient-shift 8s ease infinite',
                       animationDelay: `${index * 0.1}s`,
-                      filter: 'drop-shadow(0 0 20px rgba(6,182,212,0.5)) drop-shadow(0 0 40px rgba(139,92,246,0.3))',
+                      filter: 'drop-shadow(0 0 15px var(--shadow-cyan-30)) drop-shadow(0 0 30px var(--shadow-purple-30))',
                     }}
                   >
                     {char}
@@ -163,12 +167,15 @@ const Home = () => {
                 {"Pathane".split("").map((char, index) => (
                   <span
                     key={`last-${index}`}
-                    className="inline-block bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-600 bg-clip-text text-transparent"
+                    className="inline-block bg-clip-text text-transparent"
                     style={{ 
+                      background: 'linear-gradient(to right, var(--color-cyan-400), var(--color-blue-500), var(--color-purple-600))',
+                      WebkitBackgroundClip: 'text',
+                      backgroundClip: 'text',
                       backgroundSize: '200% 200%',
                       animation: 'gradient-shift 8s ease infinite',
                       animationDelay: `${(index + 5) * 0.1}s`,
-                      filter: 'drop-shadow(0 0 20px rgba(6,182,212,0.5)) drop-shadow(0 0 40px rgba(139,92,246,0.3))',
+                      filter: 'drop-shadow(0 0 15px var(--shadow-cyan-30)) drop-shadow(0 0 30px var(--shadow-purple-30))',
                     }}
                   >
                     {char}
@@ -190,9 +197,11 @@ const Home = () => {
               transition={{ duration: 3, repeat: Infinity }}
               className="hidden sm:block"
             >
-              <Terminal className="w-6 h-6 sm:w-7 sm:h-7 text-cyan-400" />
+              <Terminal className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: 'var(--color-cyan-400)' }} />
             </motion.div>
-            <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold bg-gradient-to-r from-slate-200 to-slate-400 bg-clip-text text-transparent whitespace-nowrap">
+            <h3 className="text-xl sm:text-2xl lg:text-4xl font-bold whitespace-nowrap"
+              style={{ color: 'var(--text-slate-200)' }}
+            >
               Full Stack Developer
             </h3>
             <motion.div
@@ -200,7 +209,7 @@ const Home = () => {
               transition={{ duration: 3, repeat: Infinity, delay: 0.5 }}
               className="hidden sm:block"
             >
-              <Code className="w-6 h-6 sm:w-7 sm:h-7 text-purple-400" />
+              <Code className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: 'var(--color-purple-400)' }} />
             </motion.div>
           </motion.div>
 
@@ -209,7 +218,8 @@ const Home = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.8 }}
-            className="max-w-2xl text-base lg:text-lg text-slate-400 leading-relaxed mb-10"
+            className="max-w-2xl text-base lg:text-lg leading-relaxed mb-10"
+            style={{ color: 'var(--text-slate-400)' }}
           >
             Crafting elegant digital experiences with cutting-edge technologies.
             Passionate about creating impactful solutions that make a difference.
@@ -236,8 +246,9 @@ const Home = () => {
               }}
             >
               {/* Animated gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600 opacity-100 group-hover:opacity-90 transition-opacity"
+              <div className="absolute inset-0 opacity-100 group-hover:opacity-90 transition-opacity"
                 style={{
+                  background: 'linear-gradient(to right, var(--color-cyan-500), var(--color-blue-500), var(--color-purple-600))',
                   backgroundSize: '200% 200%',
                   animation: 'gradient-shift 8s ease infinite'
                 }}
@@ -245,13 +256,16 @@ const Home = () => {
               
               {/* Shimmer effect */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent"
-                  style={{ animation: 'shimmer 2s infinite' }}
+                <div className="absolute inset-0"
+                  style={{ 
+                    background: 'linear-gradient(to right, transparent, var(--white-20), transparent)',
+                    animation: 'shimmer 2s infinite' 
+                  }}
                 />
               </div>
 
               {/* Button content */}
-              <span className="relative z-10 flex items-center gap-2 text-white font-bold text-base sm:text-lg whitespace-nowrap">
+              <span className="relative z-10 flex items-center gap-2 font-bold text-base sm:text-lg whitespace-nowrap" style={{ color: 'var(--text-white)' }}>
                 Explore My Work
                 <motion.div
                   animate={{ x: [0, 5, 0] }}
@@ -264,7 +278,7 @@ const Home = () => {
               {/* Outer glow */}
               <div className="absolute inset-0 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl -z-10"
                 style={{
-                  background: 'linear-gradient(to right, rgba(6,182,212,0.6), rgba(139,92,246,0.6))',
+                  background: 'linear-gradient(to right, var(--color-cyan-500-60), var(--color-purple-primary-60))',
                 }}
               />
             </motion.a>
@@ -277,16 +291,22 @@ const Home = () => {
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.98 }}
               transition={{ type: "spring", stiffness: 400, damping: 17 }}
-              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-full bg-slate-900/50 backdrop-blur-xl border border-slate-700 hover:border-cyan-500/50 transition-colors duration-300"
-              style={{
+              className="group relative px-6 sm:px-8 py-3 sm:py-4 rounded-full backdrop-blur-xl transition-colors duration-300"
+              style={{ 
+                backgroundColor: 'var(--bg-slate-900-50)',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'var(--border-slate-700)',
                 transformOrigin: 'center',
                 backfaceVisibility: 'hidden',
                 WebkitBackfaceVisibility: 'hidden',
               }}
+              onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--border-cyan-50)'}
+              onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-700)'}
             >
-              <span className="flex items-center gap-2 text-slate-200 font-bold text-base sm:text-lg whitespace-nowrap">
+              <span className="flex items-center gap-2 font-bold text-base sm:text-lg whitespace-nowrap" style={{ color: 'var(--text-slate-200)' }}>
                 View Resume
-                <Download className="w-4 h-4 sm:w-5 sm:h-5 text-cyan-400" />
+                <Download className="w-4 h-4 sm:w-5 sm:h-5" style={{ color: 'var(--color-cyan-400)' }} />
               </span>
             </motion.a>
           </motion.div>
@@ -295,7 +315,12 @@ const Home = () => {
       </div>
 
       {/* Bottom gradient fade for smooth transition to next section */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none"></div>
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none"
+        style={{ 
+          background: 'linear-gradient(to top, var(--bg-slate-950), transparent)'
+        }}
+      ></div>
     </section>
   );
 };

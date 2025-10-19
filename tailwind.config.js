@@ -6,31 +6,31 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Dark theme color palette
+        // Theme colors using CSS variables
         primary: {
-          DEFAULT: '#8B5CF6', // Purple
+          DEFAULT: 'var(--color-purple-primary)',
           light: '#A78BFA',
           dark: '#7C3AED',
         },
         secondary: {
-          DEFAULT: '#EC4899', // Pink
+          DEFAULT: 'var(--color-pink-secondary)',
           light: '#F472B6',
           dark: '#DB2777',
         },
         accent: {
-          DEFAULT: '#06B6D4', // Cyan
+          DEFAULT: 'var(--color-cyan-500)',
           light: '#22D3EE',
           dark: '#0891B2',
         },
         dark: {
-          bg: '#0F0F1E', // Very dark blue-black
-          surface: '#1A1A2E', // Dark surface
-          card: '#16213E', // Card background
-          border: '#2A2A3E', // Border color
+          bg: 'var(--bg-primary)',
+          surface: '#1A1A2E',
+          card: '#16213E',
+          border: '#2A2A3E',
         },
         light: {
-          text: '#E5E7EB', // Light text
-          muted: '#9CA3AF', // Muted text
+          text: 'var(--text-primary)',
+          muted: '#9CA3AF',
         },
       },
     },

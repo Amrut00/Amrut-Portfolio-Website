@@ -97,26 +97,27 @@ const Contact = () => {
       icon: Github,
       label: "GitHub",
       link: "https://github.com/Amrut00",
-      color: "hover:text-slate-200",
+      hoverColor: "var(--social-github-hover)", // Theme-aware: gray in dark, black in light
     },
     {
       icon: Linkedin,
       label: "LinkedIn",
       link: "https://www.linkedin.com/in/amrut-pathane/",
-      color: "hover:text-blue-400",
+      hoverColor: "var(--social-linkedin-hover)", // LinkedIn blue
     },
     {
       icon: Instagram,
       label: "Instagram",
       link: "https://www.instagram.com/amrut_ap7_/",
-      color: "hover:text-pink-400",
+      hoverColor: "var(--social-instagram-hover)", // Instagram pink/red
     },
   ];
 
   return (
     <section
       id="contact"
-      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden bg-slate-950 py-12 pb-8"
+      className="relative min-h-screen w-full flex items-center justify-center overflow-hidden py-12 pb-8"
+      style={{ backgroundColor: 'var(--bg-slate-950)' }}
     >
       <style>{`
         @keyframes float {
@@ -173,7 +174,7 @@ const Contact = () => {
       `}</style>
 
       {/* Animated grid background */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#4f4f4f12_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f12_1px,transparent_1px)] bg-[size:64px_64px]"></div>
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,var(--grid-pattern)_1px,transparent_1px),linear-gradient(to_bottom,var(--grid-pattern)_1px,transparent_1px)] bg-[size:64px_64px]"></div>
 
       {/* Gradient orbs */}
       <div className="absolute inset-0 overflow-hidden">
@@ -227,9 +228,9 @@ const Contact = () => {
               animate={{ rotate: 360 }}
               transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
             >
-              <Sparkles className="w-6 h-6 text-cyan-400" />
+              <Sparkles className="w-6 h-6" style={{ color: 'var(--color-cyan-400)' }} />
             </motion.div>
-            <span className="text-cyan-400 font-semibold tracking-wider uppercase text-sm">
+            <span className="font-semibold tracking-wider uppercase text-sm" style={{ color: 'var(--color-cyan-400)' }}>
               Let's Connect
             </span>
           </div>
@@ -246,7 +247,7 @@ const Contact = () => {
             </span>
           </h2>
 
-          <p className="text-lg text-slate-400 max-w-2xl mx-auto">
+          <p className="text-lg max-w-2xl mx-auto" style={{ color: 'var(--text-slate-400)' }}>
             Have a project in mind or want to collaborate? I'd love to hear from
             you. Drop me a message!
           </p>
@@ -281,18 +282,27 @@ const Contact = () => {
                   />
 
                   {/* Card */}
-                  <div className="relative bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 hover:border-slate-700 transition-all">
+                  <div className="relative backdrop-blur-xl rounded-2xl p-6 transition-all"
+                    style={{ 
+                      backgroundColor: 'var(--bg-slate-900-70)',
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderColor: 'var(--border-slate-800)'
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-700)'}
+                    onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-800)'}
+                  >
                     <div className="flex items-center gap-4">
                       <div
                         className={`p-3 rounded-xl bg-gradient-to-r ${info.gradient} shadow-lg`}
                       >
-                        <info.icon className="w-5 h-5 text-white" />
+                        <info.icon className="w-5 h-5" style={{ color: 'var(--text-white)' }} />
                       </div>
                       <div>
-                        <p className="text-slate-400 text-sm mb-1">
+                        <p className="text-sm mb-1" style={{ color: 'var(--text-slate-400)' }}>
                           {info.label}
                         </p>
-                        <p className="text-white font-semibold">{info.value}</p>
+                        <p className="font-semibold" style={{ color: 'var(--text-white)' }}>{info.value}</p>
                       </div>
                     </div>
                   </div>
@@ -307,7 +317,7 @@ const Contact = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.3 }}
             >
-              <h3 className="text-white font-bold text-xl mb-4 flex items-center gap-2">
+              <h3 className="font-bold text-xl mb-4 flex items-center gap-2" style={{ color: 'var(--text-white)' }}>
                 <span
                   className="w-2 h-2 rounded-full bg-gradient-to-r from-cyan-400 to-blue-500"
                   style={{ animation: "pulse-glow 2s ease-in-out infinite" }}
@@ -325,11 +335,24 @@ const Contact = () => {
                     whileHover={{ scale: 1.1, y: -3 }}
                     whileTap={{ scale: 0.95 }}
                     transition={{ type: "spring", stiffness: 400, damping: 17 }}
-                    className={`p-4 rounded-xl bg-slate-900/70 backdrop-blur-xl border border-slate-800 hover:border-slate-700 text-slate-400 ${social.color} transition-colors duration-300`}
-                    style={{
+                    className="p-4 rounded-xl backdrop-blur-xl transition-colors duration-300"
+                    style={{ 
+                      backgroundColor: 'var(--bg-slate-900-70)',
+                      borderWidth: '1px',
+                      borderStyle: 'solid',
+                      borderColor: 'var(--border-slate-800)',
+                      color: 'var(--text-slate-400)',
                       transformOrigin: "center",
                       backfaceVisibility: "hidden",
                       WebkitBackfaceVisibility: "hidden",
+                    }}
+                    onMouseEnter={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--border-slate-700)';
+                      e.currentTarget.style.color = social.hoverColor;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.borderColor = 'var(--border-slate-800)';
+                      e.currentTarget.style.color = 'var(--text-slate-400)';
                     }}
                   >
                     <social.icon className="w-5 h-5" />
@@ -348,17 +371,24 @@ const Contact = () => {
             >
               <div className="absolute -inset-1 bg-gradient-to-r from-emerald-500 to-teal-600 rounded-2xl blur-xl opacity-20 group-hover:opacity-30 transition-opacity duration-300 -z-10" />
 
-              <div className="relative bg-slate-900/70 backdrop-blur-xl border border-slate-800 rounded-2xl p-6 w-full">
+              <div className="relative backdrop-blur-xl rounded-2xl p-6 w-full"
+                style={{ 
+                  backgroundColor: 'var(--bg-slate-900-70)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--border-slate-800)'
+                }}
+              >
                 <div className="flex items-center gap-3">
                   <div className="relative">
                     <div className="w-3 h-3 bg-emerald-400 rounded-full" />
                     <div className="absolute inset-0 w-3 h-3 bg-emerald-400 rounded-full animate-ping" />
                   </div>
                   <div>
-                    <p className="text-white font-semibold">
+                    <p className="font-semibold" style={{ color: 'var(--text-white)' }}>
                       Available for work
                     </p>
-                    <p className="text-slate-400 text-sm">
+                    <p className="text-sm" style={{ color: 'var(--text-slate-400)' }}>
                       Open to new opportunities
                     </p>
                   </div>
@@ -380,7 +410,16 @@ const Contact = () => {
               <div className="absolute -inset-1 bg-gradient-to-r from-cyan-500 via-purple-500 to-pink-500 rounded-3xl blur-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-500 -z-10" />
 
               {/* Form Container */}
-              <div className="relative bg-slate-900/80 backdrop-blur-xl border border-slate-800 rounded-3xl p-6 hover:border-slate-700 transition-all h-full flex flex-col">
+              <div className="relative backdrop-blur-xl rounded-3xl p-6 transition-all h-full flex flex-col"
+                style={{ 
+                  backgroundColor: 'var(--bg-slate-900-80)',
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: 'var(--border-slate-800)'
+                }}
+                onMouseEnter={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-700)'}
+                onMouseLeave={(e) => e.currentTarget.style.borderColor = 'var(--border-slate-800)'}
+              >
                 {!isSubmitted ? (
                   <form
                     onSubmit={handleSubmit}
@@ -391,7 +430,8 @@ const Contact = () => {
                       <div>
                         <label
                           htmlFor="name"
-                          className="block text-slate-300 font-semibold mb-3"
+                          className="block font-semibold mb-3"
+                          style={{ color: 'var(--text-slate-300)' }}
                         >
                           Your Name
                         </label>
@@ -403,7 +443,22 @@ const Contact = () => {
                           onChange={handleChange}
                           required
                           placeholder="John Doe"
-                          className="input-focus w-full px-5 py-4 bg-slate-800/50 border border-slate-700 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all placeholder:text-slate-500"
+                          className="input-focus w-full px-5 py-4 rounded-xl focus:outline-none focus:ring-2 transition-all"
+                          style={{ 
+                            backgroundColor: 'var(--bg-slate-800-50)',
+                            borderWidth: '1px',
+                            borderStyle: 'solid',
+                            borderColor: 'var(--border-slate-700)',
+                            color: 'var(--text-white)'
+                          }}
+                          onFocus={(e) => {
+                            e.currentTarget.style.borderColor = 'var(--color-cyan-500)';
+                            e.currentTarget.style.boxShadow = '0 0 0 3px var(--color-cyan-500-50)';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.borderColor = 'var(--border-slate-700)';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
                         />
                       </div>
 
@@ -411,7 +466,8 @@ const Contact = () => {
                       <div>
                         <label
                           htmlFor="email"
-                          className="block text-slate-300 font-semibold mb-3"
+                          className="block font-semibold mb-3"
+                          style={{ color: 'var(--text-slate-300)' }}
                         >
                           Email Address
                         </label>
@@ -423,7 +479,22 @@ const Contact = () => {
                           onChange={handleChange}
                           required
                           placeholder="john@example.com"
-                          className="input-focus w-full px-5 py-4 bg-slate-800/50 border border-slate-700 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all placeholder:text-slate-500"
+                          className="input-focus w-full px-5 py-4 rounded-xl focus:outline-none focus:ring-2 transition-all"
+                          style={{ 
+                            backgroundColor: 'var(--bg-slate-800-50)',
+                            borderWidth: '1px',
+                            borderStyle: 'solid',
+                            borderColor: 'var(--border-slate-700)',
+                            color: 'var(--text-white)'
+                          }}
+                          onFocus={(e) => {
+                            e.currentTarget.style.borderColor = 'var(--color-cyan-500)';
+                            e.currentTarget.style.boxShadow = '0 0 0 3px var(--color-cyan-500-50)';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.borderColor = 'var(--border-slate-700)';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
                         />
                       </div>
 
@@ -431,7 +502,8 @@ const Contact = () => {
                       <div>
                         <label
                           htmlFor="message"
-                          className="block text-slate-300 font-semibold mb-3"
+                          className="block font-semibold mb-3"
+                          style={{ color: 'var(--text-slate-300)' }}
                         >
                           Your Message
                         </label>
@@ -443,7 +515,22 @@ const Contact = () => {
                           required
                           rows="6"
                           placeholder="Tell me about your project..."
-                          className="input-focus w-full px-5 py-4 bg-slate-800/50 border border-slate-700 text-white rounded-xl focus:outline-none focus:ring-2 focus:ring-cyan-500/50 focus:border-cyan-500 transition-all placeholder:text-slate-500 resize-none"
+                          className="input-focus w-full px-5 py-4 rounded-xl focus:outline-none focus:ring-2 transition-all resize-none"
+                          style={{ 
+                            backgroundColor: 'var(--bg-slate-800-50)',
+                            borderWidth: '1px',
+                            borderStyle: 'solid',
+                            borderColor: 'var(--border-slate-700)',
+                            color: 'var(--text-white)'
+                          }}
+                          onFocus={(e) => {
+                            e.currentTarget.style.borderColor = 'var(--color-cyan-500)';
+                            e.currentTarget.style.boxShadow = '0 0 0 3px var(--color-cyan-500-50)';
+                          }}
+                          onBlur={(e) => {
+                            e.currentTarget.style.borderColor = 'var(--border-slate-700)';
+                            e.currentTarget.style.boxShadow = 'none';
+                          }}
                         ></textarea>
                       </div>
                     </div>
@@ -467,12 +554,15 @@ const Contact = () => {
                       {/* Shimmer */}
                       <div className="absolute inset-0 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-500 rounded-xl">
                         <div
-                          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent rounded-xl"
-                          style={{ animation: "shimmer 2s infinite" }}
+                          className="absolute inset-0 rounded-xl"
+                          style={{ 
+                            background: 'linear-gradient(to right, transparent, var(--white-20), transparent)',
+                            animation: "shimmer 2s infinite" 
+                          }}
                         />
                       </div>
 
-                      <span className="relative z-10 flex items-center justify-center gap-2 px-8 py-4 text-white font-bold text-lg rounded-xl">
+                      <span className="relative z-10 flex items-center justify-center gap-2 px-8 py-4 font-bold text-lg rounded-xl" style={{ color: 'var(--text-white)' }}>
                         {isSubmitting ? (
                           <>
                             <motion.div
@@ -504,12 +594,12 @@ const Contact = () => {
                     className="flex flex-col items-center justify-center py-12"
                   >
                     <div className="success-checkmark mb-6 p-6 rounded-full bg-gradient-to-r from-emerald-500 to-teal-600 shadow-lg shadow-emerald-500/30">
-                      <Check className="w-12 h-12 text-white" />
+                      <Check className="w-12 h-12" style={{ color: 'var(--text-white)' }} />
                     </div>
-                    <h3 className="text-3xl font-bold text-white mb-3">
+                    <h3 className="text-3xl font-bold mb-3" style={{ color: 'var(--text-white)' }}>
                       Message Sent!
                     </h3>
-                    <p className="text-slate-400 text-center max-w-md">
+                    <p className="text-center max-w-md" style={{ color: 'var(--text-slate-400)' }}>
                       Thank you for reaching out. I'll get back to you as soon
                       as possible.
                     </p>
@@ -532,9 +622,18 @@ const Contact = () => {
             <motion.button
               whileHover={{ scale: 1.05, y: -2 }}
               whileTap={{ scale: 0.95 }}
-              className="group inline-flex items-center gap-2 px-6 py-3 rounded-full bg-slate-900/50 backdrop-blur-xl border border-slate-800 hover:border-cyan-500/50 transition-all text-slate-300 hover:text-white"
+              className="group inline-flex items-center gap-2 px-6 py-3 rounded-full backdrop-blur-xl transition-all"
+              style={{ 
+                backgroundColor: 'var(--bg-slate-900-50)',
+                borderWidth: '1px',
+                borderStyle: 'solid',
+                borderColor: 'var(--border-slate-800)',
+                color: 'var(--text-slate-300)'
+              }}
+              onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--border-cyan-50)'; e.currentTarget.style.color = 'var(--text-white)'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'var(--border-slate-800)'; e.currentTarget.style.color = 'var(--text-slate-300)'; }}
             >
-              <ArrowUp className="w-4 h-4 text-cyan-400 group-hover:-translate-y-1 transition-transform" />
+              <ArrowUp className="w-4 h-4 group-hover:-translate-y-1 transition-transform" style={{ color: 'var(--color-cyan-400)' }} />
               <span className="text-sm font-semibold">Back to Top</span>
             </motion.button>
           </Link>
@@ -548,12 +647,17 @@ const Contact = () => {
           transition={{ duration: 0.8, delay: 0.5 }}
           className="text-center mt-6 mb-0"
         >
-          <p className="text-slate-500 text-sm">© 2025 Amrut Pathane.</p>
+          <p className="text-sm" style={{ color: 'var(--text-slate-500)' }}>© 2025 Amrut Pathane.</p>
         </motion.div>
       </div>
 
       {/* Bottom gradient fade */}
-      <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none"></div>
+      <div 
+        className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
+        style={{ 
+          background: 'linear-gradient(to top, var(--bg-slate-950), transparent)'
+        }}
+      ></div>
     </section>
   );
 };
