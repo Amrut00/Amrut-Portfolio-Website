@@ -71,6 +71,19 @@ const Projects = () => {
       githubLink: "https://github.com/Amrut00/Amrut-Portfolio-Website",
       gradient: "from-pink-500 to-rose-600",
     },
+    {
+      id: 6,
+      title: "MyLeetPlan",
+      description: "Comprehensive LeetCode practice dashboard with intelligent problem recommendations, spaced repetition system, and progress tracking.",
+      longDescription: "AI-enhanced problem suggestions with Groq Cloud AI, customizable practice plan, LeetCode-style calendar, statistics dashboard, and smart recommendation system with prerequisite tracking.",
+      image: "/assets/projects/myleetplan.png",
+      technologies: ["React", "Node.js", "Express", "MongoDB", "Groq AI", "Tailwind CSS"],
+      category: "fullstack",
+      featured: true,
+      liveLink: "https://my-leet-plan.vercel.app/",
+      githubLink: "https://github.com/Amrut00/MyLeetPlan",
+      gradient: "from-green-500 to-emerald-600",
+    },
   ];
 
   const categories = [
@@ -286,7 +299,11 @@ const Projects = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.6, delay: index * 0.2 }}
-                  className="project-card group relative h-full"
+                  className={`project-card group relative h-full w-full ${
+                    featuredProjects.length % 2 !== 0 && index === featuredProjects.length - 1 
+                      ? 'lg:col-span-2 lg:max-w-2xl lg:mx-auto' 
+                      : ''
+                  }`}
                 >
                   {/* Glow effect */}
                   <div className={`absolute -inset-1 bg-gradient-to-r ${project.gradient} rounded-3xl blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-500 -z-10`} />
